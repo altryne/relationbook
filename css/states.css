@@ -1,0 +1,13 @@
+body[data-state="disconnected"] #start_cont{
+    display: none;
+}
+
+body[data-state="connected"] #login{
+    display: none;
+}
+
+body[data-state="connected"] #game{
+    position: relative;
+    margin: 0;
+    height: auto;
+}
