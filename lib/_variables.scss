@@ -11,10 +11,10 @@
 // Grays
 // -------------------------
 $black:                 #000 !default;
-$grayDarker:            #222 !default;
-$grayDark:              #333 !default;
+$grayDarker:            #494e57 !default;
+$grayDark:              #7e8793 !default;
 $gray:                  #555 !default;
-$grayLight:             #999 !default;
+$grayLight:             #bec7d2 !default;
 $grayLighter:           #eee !default;
 $white:                 #fff !default;
 
@@ -39,7 +39,7 @@ $textColor:             $grayDark !default;
 
 // Links
 // -------------------------
-$linkColor:             #08c !default;
+$linkColor:             $grayDark !default;
 $linkColorHover:        darken($linkColor, 15%) !default;
 
 
@@ -48,6 +48,7 @@ $linkColorHover:        darken($linkColor, 15%) !default;
 $sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $serifFontFamily:       Georgia, "Times New Roman", Times, serif !default;
 $monoFontFamily:        Menlo, Monaco, Consolas, "Courier New", monospace !default;
+$bigFontFamily:			"megalopolis", $serifFontFamily;
 
 $baseFontSize:          13px !default;
 $baseFontFamily:        $sansFontFamily !default;
@@ -193,12 +194,31 @@ $infoBorder:              darken(adjust-hue($infoBackground, -10), 7%) !default;
 
 // Default 940px grid
 // -------------------------
-$gridColumns:             12 !default;
-$gridColumnWidth:         60px !default;
-$gridGutterWidth:         20px !default;
+$gridColumns:             10 !default;
+$gridColumnWidth:         90px !default;
+$gridGutterWidth:         0px !default;
 $gridRowWidth:            ($gridColumns * $gridColumnWidth) + ($gridGutterWidth * ($gridColumns - 1)) !default;
 
 // Fluid grid
 // -------------------------
 $fluidGridColumnWidth:    6.382978723% !default;
 $fluidGridGutterWidth:    2.127659574% !default;
+
+
+// Text shadow
+// -------------
+$default-text-shadow-color:		#fff;
+$default-text-shadow-h-offset:	0px;
+$default-text-shadow-v-offset: 	1px;
+$default-text-shadow-blur: 		0px;
+
+@font-face {
+    font-family: 'megalopolis';
+    src: url('fonts/megalopolisextra-webfont.eot');
+    src: url('fonts/megalopolisextra-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/megalopolisextra-webfont.woff') format('woff'),
+         url('fonts/megalopolisextra-webfont.ttf') format('truetype'),
+         url('fonts/megalopolisextra-webfont.svg#MEgalopolisExtraRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}

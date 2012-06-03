@@ -4,15 +4,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title>Couples Game</title>
+	<title>RelationBook.me</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
 	<meta name="viewport" content="width=device-width">
 
 	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/responsive.css">
-	<link rel="stylesheet" href="css/style.css">
+	<!--<link rel="stylesheet" href="css/responsive.css">-->
 
 	<!--<link rel="stylesheet" href="css/states.css">-->
 
@@ -21,21 +20,35 @@
 <body data-state="disconnected">
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
-<header>
+<header class="container">
+		<div class="span3"><a href="http://relationbook.me" id="logo" class="ir">relationbook.me</a> </div>
+		<div class="span3 offset4">
+			<ul id="menu" class="span2">
+				<li class="item"><a href="#">Blog</a></li>
+				<li class="item"><a href="#">Help</a></li>
+				<li class="item"><a href="#">About</a></li>
+			</ul>
+		</div>
+	</header>
+<div id="main" class="container">
+	<div id="welcome" class="container">
+		<div id="login" class="span8 offset1">
+			<div class="welcome">
+				<h1>Who's in a relationship?</h1>
 
-</header>
-<div id="main">
-
-	<div id="game">
-
-		<div id="login">
-			<p class="welcome">
-				Welcome to Relationship Inspector
-			</p>
+				<h2>Find out quickly who of your facebook <br>
+					friends are 'single' or 'related'</h2>
+			</div>
 			<div class="sign_in">
-				Please <div class="fb-login-button" data-show-faces="false" data-width="200" data-max-rows="1" data-scope="user_relationships,user_relationship_details,friends_relationships"></div> to start
+				Please
+				<div class="fb-login-button" data-show-faces="false" data-width="200" data-max-rows="1" data-scope="user_relationships,user_relationship_details,friends_relationships"></div>
+				to start
 			</div>
 		</div>
+	</div>
+	<div id="game">
+
+
 		<div id="start_cont">
 			<div id="stats"></div>
 			<div id="sort">
@@ -49,11 +62,15 @@
 			<div id="friends_cont"></div>
 		</div>
 	</div>
-</div>
-<footer>
-	<div id="fb-root"></div>
-</footer>
 
+
+
+</div>
+
+<footer class="container">
+	<div id="fb-root"></div>
+	<span id="copy" class="span10">&copy; Copyright Relationbook.me | Have feedback? <a href="bla">Let us know!</a></span>
+</footer>
 
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];

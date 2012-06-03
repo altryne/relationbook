@@ -22,41 +22,43 @@
 
 // Base CSS
 @import "type";
-@import "code";
-@import "forms";
-@import "tables";
+//@import "code";
+//@import "forms";
+//@import "tables";
 
 // Components: common
-@import "sprites";
-@import "dropdowns";
+//@import "sprites";
+//@import "dropdowns";
 @import "wells";
-@import "component-animations";
-@import "close";
+//@import "component-animations";
+//@import "close";
 
 // Components: Buttons & Alerts
-@import "buttons";
-@import "button-groups";
-@import "alerts"; // Note: alerts share common CSS with buttons and thus have styles in buttons
+//@import "buttons";
+//@import "button-groups";
+//@import "alerts";
 
 // Components: Nav
-@import "navs";
-@import "navbar";
-@import "breadcrumbs";
-@import "pagination";
-@import "pager";
+//@import "navs";
+//@import "navbar";
+//@import "breadcrumbs";
+//@import "pagination";
+//@import "pager";
 
 // Components: Popovers
-@import "modals";
-@import "tooltip";
-@import "popovers";
+//@import "modals";
+//@import "tooltip";
+//@import "popovers";
 
 // Components: Misc
-@import "thumbnails";
-@import "labels-badges";
+//@import "thumbnails";
+//@import "labels-badges";
 @import "progress-bars";
-@import "accordion";
-@import "carousel";
-@import "hero-unit";
+//@import "accordion";
+//@import "carousel";
+//@import "hero-unit";
+
+@import "style";
 
 // Utility classes
 @import "utilities"; // Has to be last to override when necessary

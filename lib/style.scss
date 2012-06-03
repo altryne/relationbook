@@ -2,53 +2,94 @@
 /* ===== Primary Styles ========================================================
    Author:
    ========================================================================== */
+html{
+  background: url(../img/bg.jpg) repeat;
+  height: 100%
+}
 body{
-    background: url(../img/bg.jpg) repeat;
-
-
+  background: url(../img/hearts.png) 50% top no-repeat;
+  height: 100%;
 }
 
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+header{
+  padding-top:43px;
+  height: 40px;
+
+}
+#logo{
+  background: url(../img/logo.png) left bottom no-repeat;
+  display: block;
+  height: 27px;
+}
+
+#menu{
+  	list-style: none;
+	display:block;
+  	@include border-radius(25px);
+    padding:15px 0;
+  	margin: 0;
+  	height: 40px;
+
+    background: #fff;
+  li{
+    display: inline-block;
+    width:30%;
+	padding: 0;
+	@include single-text-shadow;
+  }
+}
+
+
 #login{
-    /*position: fixed;*/
-    /*width:100%;*/
-    /*height: 150px;*/
-    /*z-index: 1000;*/
-    /*top:50%;*/
-    /*margin-top:-75px;*/
-    /*background: rgba(0,0,0,0.3);*/
-    /*text-align: center;*/
-    /*color: #fff;*/
-    /*text-shadow: 0 1px 0 rgba(0,0,0,0.6);*/
-    /*font-weight: bold;*/
     position: relative;
     z-index: 10;
 }
+
+
+footer{
+  	@include single-text-shadow;
+	position: absolute;
+  	height: 30px;
+  	bottom:0;
+  	left: 0;right:0;
+}
+#copy{
+  text-align: center;
+}
+
+
 #main{
 
 
 }
+#welcome{
+  text-align : center;
+  background: url(../img/heart.png) 50% 15px no-repeat;
+  padding-top:165px;
+}
 .welcome{
-    font-size: 25px;
 
-
+	h1{
+	  font : 45px / 1.666em $bigFontFamily;
+	  color: $grayDark;
+	  @include single-text-shadow;
+	}
+  	h2{
+		color: $grayDarker;
+		font:28px / 1.5em $bigFontFamily;
+		@include single-text-shadow;
+	}
 }
 .fb-login-button{
     display: inline-block;
 }
 
 #game{
-    position: absolute;
-    width:100%;
-    height: 150px;
-    z-index: 500;
-    top:50%;
-    margin-top:-75px;
-    background: rgba(0,0,0,0.8);
-
-    text-align: center;
-    color: #fff;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
-    font-weight: bold;
     -webkit-transition: all 250ms ease-out;
     -moz-transition: all 250ms ease-out;
     -ms-transition: all 250ms ease-out;
