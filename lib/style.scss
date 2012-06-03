@@ -1,0 +1,173 @@
+
+/* ===== Primary Styles ========================================================
+   Author:
+   ========================================================================== */
+body{
+    background: url(../img/bg.jpg) repeat;
+
+
+}
+
+#login{
+    /*position: fixed;*/
+    /*width:100%;*/
+    /*height: 150px;*/
+    /*z-index: 1000;*/
+    /*top:50%;*/
+    /*margin-top:-75px;*/
+    /*background: rgba(0,0,0,0.3);*/
+    /*text-align: center;*/
+    /*color: #fff;*/
+    /*text-shadow: 0 1px 0 rgba(0,0,0,0.6);*/
+    /*font-weight: bold;*/
+    position: relative;
+    z-index: 10;
+}
+#main{
+
+
+}
+.welcome{
+    font-size: 25px;
+
+
+}
+.fb-login-button{
+    display: inline-block;
+}
+
+#game{
+    position: absolute;
+    width:100%;
+    height: 150px;
+    z-index: 500;
+    top:50%;
+    margin-top:-75px;
+    background: rgba(0,0,0,0.8);
+
+    text-align: center;
+    color: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.6);
+    font-weight: bold;
+    -webkit-transition: all 250ms ease-out;
+    -moz-transition: all 250ms ease-out;
+    -ms-transition: all 250ms ease-out;
+    -o-transition: all 250ms ease-out;
+    transition: all 250ms ease-out;
+
+}
+
+
+#start{
+    width:150px;
+    margin: 0 auto;
+    height:70px;
+    font-weight: bold;
+    font-size: 75px;
+    color:#ffffff;
+    cursor: pointer;
+}
+
+#start_cont{
+    position: relative;
+    z-index: 10;
+}
+
+#friends_cont{
+    margin: 0 auto;
+    padding: 0;
+    width:600px;
+
+}
+#friends{
+    margin: 0;
+}
+.rel{
+    /*letter-spacing: -4px;*/
+    text-align: left;
+    list-style:none;
+    position: relative;
+}
+.prof,.is,.status,.preposition,.rel_info{
+    letter-spacing: normal;
+    display: inline-block;
+    vertical-align: middle;
+}
+.isnot{
+    font-size: 12px;
+    color:#eee;
+}
+.prof{
+    width: 100px;
+    font-size: 15px;
+    text-align: center;
+}
+.prof .friend_name{
+    position: absolute;
+    width:250px;
+}
+.friend_prof .friend_name{
+    top:24px;
+    left:100px;
+}
+.mate_prof .friend_name{
+    bottom:22px;
+    left:100px;
+}
+.prof_pic{
+
+    width:70px;
+    height: 70px;
+    /*background: #fed;*/
+    border: #fff 3px solid;
+    box-shadow: 1px 1px 3px #000;
+    overflow: hidden;
+    vertical-align: bottom;
+    position: relative;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin:20px auto;
+}
+
+.rel_info{
+    width:250px;
+    text-align: center;
+}
+
+#sort{
+    text-align: left;
+    position: fixed;
+
+}
+.sort_tags{
+    list-style: none;
+    font-size: 14px;
+}
+
+.sort_tags input{
+    visibility: hidden;
+}
+.sort_tags label{
+    padding:5px;
+    margin:5px;
+}
+.sort_tags input:checked + label{
+    background: #323680;
+    border-radius: 5px;
+
+}
+
+body[data-state="disconnected"] #start_cont{
+    display: none;
+}
+
+body[data-state="connected"] #login{
+    display: none;
+}
+
+body[data-state="connected"] #game{
+    position: relative;
+    margin: 0;
+    height: auto;
+}
