@@ -16,12 +16,14 @@
 	<!--<link rel="stylesheet" href="css/states.css">-->
 
 	<script src="js/libs/modernizr-2.5.3.min.js"></script>
-	<script src="js/friends.js"></script>
 </head>
 <body data-state="disconnected">
 <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
 
 <header class="container">
+		<div class="row userdata">
+
+		</div>
 		<div class="span3"><a href="http://relationbook.me" id="logo" class="ir">relationbook.me</a> </div>
 		<div class="span3 offset4">
 			<ul id="menu" class="span2">
@@ -30,7 +32,7 @@
 				<li class="item"><a href="#">About</a></li>
 			</ul>
 		</div>
-	</header>
+</header>
 <div id="main" class="container">
 	<div id="welcome" class="container">
 		<div id="login" class="span8 offset1">
@@ -40,16 +42,17 @@
 				<h2>Find out quickly who of your facebook <br>
 					friends are 'single' or 'related'</h2>
 			</div>
-			<div class="sign_in span2 offset3">
-				<div class="fb-login-button" data-show-faces="false" data-width="180" data-max-rows="1" data-scope="user_relationships,user_relationship_details,friends_relationships">Start Here</div>
+			<div id="sign_in" class="sign_in span2 offset3">
+				<div class="login">Start Here</div>
+				<!--<div class="fb-login-button" data-show-faces="false" data-width="180" data-max-rows="1" data-scope="user_relationships,user_relationship_details,friends_relationships">Start Here</div>-->
 			</div>
 		</div>
 	</div>
 	<div id="connected" class="row">
-		<aside class="span2"><div id="stats"></div>
+		<aside class="span3">
+		<!--<div id="stats"></div>-->
 		<div id="sort">
-			<div id="sort_by">Apply Filters:</div>
-			<h5>Sex :</h5>
+			<h5>Apply Filters:</h5>
 			<ul class="sort_tags">
 				<li><input type="checkbox" name="male" id="male" data-category="sex"><label for="male" class="sort_by">Male</label>
 				</li>
@@ -57,6 +60,7 @@
 					<input type="checkbox" name="female" id="female" data-category="sex"><label for="female" class="sort_by">Female</label>
 				</li>
 			</ul>
+			<hr>
 		</div></aside>
 		<div id="friends_cont" class="span8">
 			<div id="friends_header"></div>
@@ -74,13 +78,13 @@
 	<span id="copy" class="span10">&copy; Copyright Relationbook.me | Have feedback? <a href="bla">Let us know!</a></span>
 </footer>
 
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=397573470274307";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
+<script>(function() {
+  var e = document.createElement('script'); e.async = true;
+  e.src = document.location.protocol
+    + '//connect.facebook.net/en_US/all.js';
+  document.getElementById('fb-root').appendChild(e);
+}());
+</script>
 
 
 <script src="js/libs/jquery-1.7.1.min.js"></script>
