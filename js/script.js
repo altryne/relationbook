@@ -1,31 +1,37 @@
-/* Author:
-
+/*
+* Author: Alex Wolkov  - @altryne
 */
-
 var game_of_profiles  = gop = {
+    debug : false,
     storage : {},
     templates : {},
     filters : {},
     rel_to_preposition : {
-        "married" : "to",
-        "in_a_relationship"  : "with",
-        "divorced" : "",
-        "it's_complicated" : "",
-        "engaged" : "to",
         "single" : "",
+        "in_a_relationship"  : "with",
+        "engaged" : "to",
+        "married" : "to",
+        "it's_complicated" : "with",
+        "in_an_open_relationship" : "width",
+        "widowed" : "",
+        "separated" : "",
+        "divorced" : "",
         "undefined" : ""
     },
     init : function(){
         gop.compileTemplates();
         gop.bindEvents();
+
+        //render statuses filters
+        gop.data.statuses = _.keys(gop.rel_to_preposition);
+        gop.ui.renderStatusFilters();
     },
     compileTemplates : function(){
-//        gop.tempaltes.friends = _.template('<ul id="friends"><% _.each(friends,function(friend){ %> <li><span><%= friend.name %> </span></li><% }; %></ul> %>');
         gop.templates.friends = _.template('<ul id="friends">' +
                 '<% _.each(friends, function(friend) { %>' +
                     '<li class="rel">' +
                         '<div class="prof friend_prof">' +
-                            '<div class="prof_pic" style="background-image:url(<%= friend.pic_square %>)"></div>' +
+                            '<div class="prof_cont"><div class="prof_pic" style="background-image:url(<%= friend.pic %>)"></div></div>' +
                             '<div class="friend_name"><%= friend.name %></div>' +
                         '</div>' +
                         '<div class="rel_info">' +
@@ -40,7 +46,7 @@ var game_of_profiles  = gop = {
                             '<div class="preposition"><%= gop.data.preposition(friend.relationship_status) %></div>' +
                             '</div>' +
                             '<div class="prof mate_prof">' +
-                                '<div class="prof_pic" style="background-image:url(<%= friend.mate.pic_square %>)"></div>' +
+                                '<div class="prof_cont"><div class="prof_pic" style="background-image:url(<%= friend.mate.pic %>)"></div></div>' +
                                 '<div class="friend_name"><%= friend.mate.name %></div>' +
                             '</div>' +
                         '<% } %>' +
@@ -52,7 +58,7 @@ var game_of_profiles  = gop = {
     bindEvents : function(){
         $.subscribe('fb/status',gop.ui.setState);
         $.subscribe('fb/connected',gop.connected);
-        $.subscribe('fb/fetched_friends',gop.data.render);
+        $.subscribe('fb/fetched_friends',gop.ui.render);
         $.subscribe('fb/fetched_friends',gop.data.groupByStatus);
 
         FB.Event.subscribe('auth.statusChange',function(response) {
@@ -70,7 +76,7 @@ var game_of_profiles  = gop = {
                    if(typeof gop.filters[filter_cat] == 'undefined'){
                         gop.filters[filter_cat] = [];
                    }
-                   gop.filters[filter_cat].push($(this).prop('id'));
+                   gop.filters[filter_cat].push($(this).prop('id').split(" ").join('_'));
                });
                gop.data.filterCouples();
            },100);
@@ -82,50 +88,55 @@ var game_of_profiles  = gop = {
     }
 }
 
-
-
 gop.data = {
     friends : {},
     mates : {},
     by_status : {},
     by_sex : {},
     getFriends : function(){
-
+        if(!gop.debug){
+            gop.data.getFriendsFromFB();
+        }else if(friends){
+            gop.data.handleFriends(friends);
+        }
+    },
+    getFriendsFromFB : function(){
         FB.api(
                 {
                     method:'fql.multiquery',
                     queries: {
-                        friends : 'SELECT uid, name,sex, pic_square,relationship_status, significant_other_id FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) ORDER BY name',
-                        significant_others : 'SELECT uid, name,pic_square FROM user WHERE uid in (SELECT significant_other_id FROM #friends WHERE relationship_status != "")'
+                        friends : 'SELECT uid, name,sex ,pic,relationship_status, significant_other_id FROM user WHERE uid IN (SELECT uid2 FROM friend WHERE uid1 = me()) ORDER BY name',
+                        significant_others : 'SELECT uid, name,pic FROM user WHERE uid in (SELECT significant_other_id FROM #friends WHERE relationship_status != "")'
                     }
                 },
                 function (data) {
-                    var friends_array = data[0].fql_result_set;
-                    console.log(friends_array);
-                    var mates_array = data[1].fql_result_set;
-                    for (var i = 0; i < mates_array.length; i++) {
-                        gop.data.mates[mates_array[i].uid] = mates_array[i];
-                    }
-                    for (var i = 0; i < friends_array.length; i++) {
-                        var friend = friends_array[i];
-                        var his_mate = gop.data.mates[friend.significant_other_id];
-                        friend["mate"] = his_mate;
-                        if(friend.relationship_status != null){
-                            rel_status = friend.relationship_status.toLowerCase().split(" ").join("_");
-                        }else{
-                            rel_status = "undefined";
-                            friend.relationship_status = "undefined";
-                        }
-                    }
-                    gop.data.friends = friends_array;
-                    $.publish('fb/fetched_friends');
+                    gop.data.handleFriends(data);
                 }
         );
     },
-    render : function(e,friends_array){
-        friends_array = friends_array || gop.data.friends;
-        var html = gop.templates.friends({friends : friends_array});
-        $('#friends_cont').empty().append(html);
+    /*
+        receives 2 arrays, friends and mates, sorts accordingly
+     */
+    handleFriends : function(data)
+    {
+        var friends_array = data[0].fql_result_set;
+        var mates_array = data[1].fql_result_set;
+        for (var i = 0; i < mates_array.length; i++) {
+            gop.data.mates[mates_array[i].uid] = mates_array[i];
+        }
+        for (var i = 0; i < friends_array.length; i++) {
+            var friend = friends_array[i];
+            var his_mate = gop.data.mates[friend.significant_other_id];
+            friend["mate"] = his_mate;
+            if (friend.relationship_status != null) {
+                rel_status = friend.relationship_status.toLowerCase().split(" ").join("_");
+            } else {
+                rel_status = "undefined";
+                friend.relationship_status = "undefined";
+            }
+        }
+        gop.data.friends = friends_array;
+        $.publish('fb/fetched_friends');
     },
     preposition : function(rel_status){
         rel_status = rel_status || 'undefined';
@@ -135,22 +146,19 @@ gop.data = {
     groupByStatus: function(e,object) {
         object = object || gop.data.friends;
         gop.data.friends_by_status =  _.groupBy(object,function(friend) {return friend.relationship_status});
-        gop.data.statuses = _.keys(gop.data.friends_by_status);
-
-        gop.ui.renderStatusFilters();
     },
     filterCouples : function(){
         gop.data.friends_by_status =  _.filter(gop.data.friends,function(friend) {return gop.data.friendMatchesFilters(friend)});
-
-        gop.data.render(null,gop.data.friends_by_status);
+        gop.ui.render(null,gop.data.friends_by_status);
     },
     friendMatchesFilters : function(friend){
         var score = 0;
         $.each(gop.filters,function(filter_category,filters_arr){
             var filters_cat = filter_category;
+
             if(typeof friend[filters_cat] != "undefined"){
                 $.each(filters_arr,function(index,item){
-                    if(friend[filters_cat] == item){
+                    if(friend[filters_cat].toLowerCase().split(' ').join("_") == item){
                         score += 1;
                     }
                 })
@@ -161,11 +169,20 @@ gop.data = {
 }
 
 gop.ui = {
-    renderStatusFilters : function(){
+    renderStatusFilters:function () {
+        gop.data.statuses = _.map(gop.data.statuses, function (status) {
+            return status.split('_').join(' ');
+        });
+
         var tmpl = '<h5>Relationship Status:</h5><ul class="sort_tags"><% _.each(statuses,function(status){ %><li><input type="checkbox" data-category="relationship_status" name="<%= status %>" id="<%= status %>"><label for="<%= status %>" class="sort_by"><%= status %></label></li> <% }) %></ul>';
-        var tmpl_data = {"statuses": gop.data.statuses};
-        var html = _.template(tmpl,tmpl_data);
+        var tmpl_data = {"statuses":gop.data.statuses};
+        var html = _.template(tmpl, tmpl_data);
         $('#sort').append(html);
+    },
+    render:function (e, friends_array) {
+        friends_array = friends_array || gop.data.friends;
+        var html = gop.templates.friends({friends:friends_array});
+        $('#friends_body').empty().append(html);
     },
 
     setState:function (e, data) {

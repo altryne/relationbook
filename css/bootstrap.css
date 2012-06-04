@@ -850,8 +850,8 @@ html {
 
 /* line 9, /Users/altryne/www/relationbook/lib/style.scss */
 body {
-  background: url(../img/hearts.png) 50% top no-repeat;
-  height: 100%; }
+  background: url(../img/hearts.png) 50% top no-repeat fixed;
+  min-height: 100%; }
 
 /* ==========================================================================
    HEADER
@@ -865,7 +865,7 @@ header {
 #logo {
   background: url(../img/logo.png) left bottom no-repeat;
   display: block;
-  height: 27px; }
+  height: 33px; }
 
 /* line 30, /Users/altryne/www/relationbook/lib/style.scss */
 #menu {
@@ -874,35 +874,36 @@ header {
   -webkit-border-radius: 25px;
   -moz-border-radius: 25px;
   border-radius: 25px;
-  padding: 15px 0;
+  padding: 10px 0;
   margin: 0;
-  height: 40px;
-  background: #fff; }
-  /* line 39, /Users/altryne/www/relationbook/lib/style.scss */
+  margin-left: 85px;
+  height: 20px;
+  background: #fff;
+  text-align: center;
+  letter-spacing: -1px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
+  /* line 44, /Users/altryne/www/relationbook/lib/style.scss */
   #menu li {
     display: inline-block;
-    width: 30%;
+    letter-spacing: normal;
+    vertical-align: middle;
+    width: 25%;
     padding: 0;
     text-shadow: white 0px 1px 0px; }
+  /* line 52, /Users/altryne/www/relationbook/lib/style.scss */
+  #menu li:nth-child(1) {
+    margin-left: -5px; }
 
-/* line 48, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 58, /Users/altryne/www/relationbook/lib/style.scss */
 #login {
   position: relative;
   z-index: 10; }
 
-/* line 54, /Users/altryne/www/relationbook/lib/style.scss */
-footer {
-  text-shadow: white 0px 1px 0px;
-  position: absolute;
-  height: 30px;
-  bottom: 0;
-  left: 0;
-  right: 0; }
-
-/* line 61, /Users/altryne/www/relationbook/lib/style.scss */
-#copy {
-  text-align: center; }
-
+/* ==========================================================================
+   Welcome state
+   ========================================================================== */
 /* line 70, /Users/altryne/www/relationbook/lib/style.scss */
 #welcome {
   text-align: center;
@@ -921,137 +922,205 @@ footer {
   text-shadow: white 0px 1px 0px; }
 
 /* line 88, /Users/altryne/www/relationbook/lib/style.scss */
+.sign_in {
+  margin-top: 35px;
+  height: 55px;
+  -webkit-border-radius: 40px;
+  -moz-border-radius: 40px;
+  border-radius: 40px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  background-color: #5176b9;
+  background-image: -webkit-gradient(linear, 0 0, 100% 0, from(#547bc0), to(#5176b9));
+  background-image: -webkit-linear-gradient(left, #547bc0, #5176b9);
+  background-image: -moz-linear-gradient(left, #547bc0, #5176b9);
+  background-image: -ms-linear-gradient(left, #547bc0, #5176b9);
+  background-image: -o-linear-gradient(left, #547bc0, #5176b9);
+  background-image: linear-gradient(left, #547bc0, #5176b9);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5078bf', endColorstr='#4d73b8', GradientType=1); }
+
+/* line 96, /Users/altryne/www/relationbook/lib/style.scss */
 .fb-login-button {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  color: white;
+  font: 25px/55px "megalopolis", Georgia, "Times New Roman", Times, serif;
   display: inline-block; }
 
-/* line 92, /Users/altryne/www/relationbook/lib/style.scss */
-#game {
-  -webkit-transition: all 250ms ease-out;
-  -moz-transition: all 250ms ease-out;
-  -ms-transition: all 250ms ease-out;
-  -o-transition: all 250ms ease-out;
-  transition: all 250ms ease-out; }
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+/* line 109, /Users/altryne/www/relationbook/lib/style.scss */
+footer {
+  text-shadow: white 0px 1px 0px;
+  position: absolute;
+  height: 30px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  color: #727987; }
+  /* line 116, /Users/altryne/www/relationbook/lib/style.scss */
+  footer a {
+    color: #727987; }
 
-/* line 102, /Users/altryne/www/relationbook/lib/style.scss */
-#start {
-  width: 150px;
-  margin: 0 auto;
-  height: 70px;
-  font-weight: bold;
-  font-size: 75px;
-  color: #ffffff;
-  cursor: pointer; }
+/* line 120, /Users/altryne/www/relationbook/lib/style.scss */
+#copy {
+  text-align: center; }
 
-/* line 112, /Users/altryne/www/relationbook/lib/style.scss */
-#start_cont {
-  position: relative;
-  z-index: 10; }
+/* ==========================================================================
+   Connected state
+   ========================================================================== */
+/* line 128, /Users/altryne/www/relationbook/lib/style.scss */
+#connected {
+  position: absolute;
+  top: 128px;
+  bottom: 44px; }
 
-/* line 117, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 134, /Users/altryne/www/relationbook/lib/style.scss */
 #friends_cont {
-  margin: 0 auto;
-  padding: 0;
-  width: 600px; }
+  background: white;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  height: 100%; }
 
-/* line 123, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 143, /Users/altryne/www/relationbook/lib/style.scss */
+#friends_header {
+  box-sizing: border-box;
+  height: 52px;
+  border-bottom: 3px dashed #eeeeee;
+  position: absolute;
+  top: 0;
+  width: 100%; }
+
+/* line 150, /Users/altryne/www/relationbook/lib/style.scss */
+#friends_footer {
+  box-sizing: border-box;
+  height: 52px;
+  border-top: 3px dashed #eeeeee;
+  position: absolute;
+  bottom: 0;
+  width: 100%; }
+
+/* line 157, /Users/altryne/www/relationbook/lib/style.scss */
+#friends_body {
+  overflow: scroll;
+  position: absolute;
+  top: 52px;
+  bottom: 52px;
+  left: 0;
+  right: 0; }
+
+/* line 164, /Users/altryne/www/relationbook/lib/style.scss */
 #friends {
   margin: 0; }
 
-/* line 126, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 168, /Users/altryne/www/relationbook/lib/style.scss */
 .rel {
-  /*letter-spacing: -4px;*/
   text-align: left;
   list-style: none;
-  position: relative; }
+  position: relative;
+  padding: 50px 20px; }
 
-/* line 132, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 175, /Users/altryne/www/relationbook/lib/style.scss */
+.rel:nth-child(2n-1) {
+  background: #f7f8f9;
+  border-top: 3px dashed #eeeeee;
+  border-bottom: 3px dashed #eeeeee; }
+
+/* line 180, /Users/altryne/www/relationbook/lib/style.scss */
+.rel:first-child, .rel:last-child {
+  border: none; }
+
+/* line 183, /Users/altryne/www/relationbook/lib/style.scss */
 .prof, .is, .status, .preposition, .rel_info {
   letter-spacing: normal;
   display: inline-block;
   vertical-align: middle; }
 
-/* line 137, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 188, /Users/altryne/www/relationbook/lib/style.scss */
 .isnot {
   font-size: 12px;
   color: #eee; }
 
-/* line 141, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 192, /Users/altryne/www/relationbook/lib/style.scss */
 .prof {
-  width: 100px;
   font-size: 15px;
   text-align: center; }
 
-/* line 146, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 196, /Users/altryne/www/relationbook/lib/style.scss */
 .prof .friend_name {
   position: absolute;
   width: 250px; }
 
-/* line 150, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 200, /Users/altryne/www/relationbook/lib/style.scss */
 .friend_prof .friend_name {
   top: 24px;
   left: 100px; }
 
-/* line 154, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 204, /Users/altryne/www/relationbook/lib/style.scss */
 .mate_prof .friend_name {
   bottom: 22px;
   left: 100px; }
 
-/* line 158, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 208, /Users/altryne/www/relationbook/lib/style.scss */
+.prof_cont {
+  background: white;
+  border: 1px solid #ced0d1;
+  padding: 5px;
+  width: 105px;
+  height: 105px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px; }
+
+/* line 217, /Users/altryne/www/relationbook/lib/style.scss */
 .prof_pic {
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 100px;
   /*background: #fed;*/
   border: #fff 3px solid;
-  box-shadow: 1px 1px 3px #000;
+  -webkit-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   vertical-align: bottom;
   position: relative;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   background-size: cover;
-  background-repeat: no-repeat;
-  margin: 20px auto; }
+  background-repeat: no-repeat; }
 
-/* line 174, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 231, /Users/altryne/www/relationbook/lib/style.scss */
 .rel_info {
   width: 250px;
   text-align: center; }
 
-/* line 179, /Users/altryne/www/relationbook/lib/style.scss */
-#sort {
-  text-align: left;
-  position: fixed; }
-
-/* line 184, /Users/altryne/www/relationbook/lib/style.scss */
-.sort_tags {
-  list-style: none;
-  font-size: 14px; }
-
-/* line 189, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 244, /Users/altryne/www/relationbook/lib/style.scss */
 .sort_tags input {
   visibility: hidden; }
 
-/* line 192, /Users/altryne/www/relationbook/lib/style.scss */
-.sort_tags label {
-  padding: 5px;
-  margin: 5px; }
-
-/* line 196, /Users/altryne/www/relationbook/lib/style.scss */
+/* line 250, /Users/altryne/www/relationbook/lib/style.scss */
 .sort_tags input:checked + label {
   background: #323680;
   border-radius: 5px; }
 
-/* line 202, /Users/altryne/www/relationbook/lib/style.scss */
-body[data-state="disconnected"] #start_cont {
+/* line 256, /Users/altryne/www/relationbook/lib/style.scss */
+body[data-state="disconnected"] #connected {
   display: none; }
 
-/* line 206, /Users/altryne/www/relationbook/lib/style.scss */
-body[data-state="connected"] #login {
+/* line 260, /Users/altryne/www/relationbook/lib/style.scss */
+body[data-state="connected"] #welcome {
   display: none; }
-
-/* line 210, /Users/altryne/www/relationbook/lib/style.scss */
-body[data-state="connected"] #game {
-  position: relative;
-  margin: 0;
-  height: auto; }
 
 /* line 5, /Users/altryne/www/relationbook/lib/_utilities.scss */
 .pull-right {
