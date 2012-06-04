@@ -147,12 +147,6 @@ gop.data = {
             friend["mate"] = his_mate;
             if (friend.relationship_status != null) {
                 rel_status = friend.relationship_status.toLowerCase().split(" ").join("_");
-
-                if(rel_status == "single"){
-                    FB.api('/'+friend.uid+'?fields=interested_in', function (response) {
-                        console.log(response);
-                    });
-                }
             } else {
                 rel_status = "undefined";
                 friend.relationship_status = "undefined";
