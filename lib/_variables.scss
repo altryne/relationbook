@@ -213,24 +213,26 @@ $default-text-shadow-h-offset:	0px;
 $default-text-shadow-v-offset: 	1px;
 $default-text-shadow-blur: 		0px;
 
+$font_path: "fonts/" !default;
+
 @font-face {
-    font-family: 'megalopolis';
-    src: url('fonts/megalopolisextra-webfont.eot');
-    src: url('fonts/megalopolisextra-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/megalopolisextra-webfont.woff') format('woff'),
-         url('fonts/megalopolisextra-webfont.ttf') format('truetype'),
-         url('fonts/megalopolisextra-webfont.svg#MEgalopolisExtraRegular') format('svg');
+    font-family: 'chunkfive';
+    src: url('#{$font_path}Chunkfive-webfont.eot');
+    src: url('#{$font_path}Chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font_path}Chunkfive-webfont.woff') format('woff'),
+         url('#{$font_path}Chunkfive-webfont.ttf') format('truetype'),
+         url('#{$font_path}Chunkfive-webfont.svg#ChunkFiveRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'chunkfive';
-    src: url('fonts/Chunkfive-webfont.eot');
-    src: url('fonts/Chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
-         url('fonts/Chunkfive-webfont.woff') format('woff'),
-         url('fonts/Chunkfive-webfont.ttf') format('truetype'),
-         url('fonts/Chunkfive-webfont.svg#ChunkFiveRegular') format('svg');
+    font-family: 'FontAwesome';
+    src: url('#{$font_path}fontawesome-webfont.eot');
+    src: url('#{$font_path}fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font_path}fontawesome-webfont.woff') format('woff'),
+         url('#{$font_path}fontawesome-webfont.ttf') format('truetype'),
+         url('#{$font_path}fontawesome-webfont.svg#ChunkFiveRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 }

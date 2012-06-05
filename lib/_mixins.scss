@@ -652,10 +652,10 @@ custom mixins
     $shadow-1: $default-text-shadow-color $default-text-shadow-h-offset $default-text-shadow-v-offset $default-text-shadow-blur; }
   text-shadow: compact($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10); }
 
-@mixin single-text-shadow($color: $default-text-shadow-color, $hoff: $default-text-shadow-h-offset, $voff: $default-text-shadow-v-offset, $blur: $default-text-shadow-blur) {
+@mixin single-text-shadow($hoff: $default-text-shadow-h-offset, $voff: $default-text-shadow-v-offset, $blur: $default-text-shadow-blur ,$color: $default-text-shadow-color) {
   // XXX I'm surprised we don't need experimental support for this property.
   @if $color == none {
     text-shadow: none; }
   @else {
-    text-shadow: $color $hoff $voff $blur; }
+    text-shadow: $hoff $voff $blur $color; }
 }

@@ -162,6 +162,7 @@ footer{
 	height: 100%;
 	margin-left:-50px;
 	width:680px;
+	float:left;
 }
 $friends_padding : 52px;
 
@@ -172,13 +173,74 @@ $friends_padding : 52px;
 	position: absolute;top:0;
 	width:100%;
 }
+
+#showing{
+	height: 100%;
+	width:80%;
+	font-size:18px;
+	font-family: $bigFontFamily;
+	@include single-text-shadow;
+	line-height:50px;
+	padding-left:55px;
+	.count{
+		color:$blue;
+	}
+}
+
+#view_cont{
+	position: absolute;
+	right:10px;
+	top:0px;
+	text-align: center;
+	background: $grayLighter;
+	font-size: 20px;
+	margin-top:10px;
+	margin-left:25px;
+	border-radius:5px;
+	padding: 5px 15px;
+	letter-spacing: 5px;
+}
+.view{
+	display: inline-block;
+	text-shadow : 1px 1px 0px rgba(255,255,255,.2);
+	cursor: pointer;
+}
+.view.selected{
+	color:$blue;
+}
+
 #friends_footer{
 	box-sizing: border-box;
 	height:$friends_padding;
 	border-top:3px dashed $grayLighter;
 	position: absolute;bottom:0;
 	width:100%;
+	font-size:18px;
+
+	@include single-text-shadow;
+	line-height: 45px;
+	padding-left: 25px;
+
+	.rel_info{
+		line-height: inherit;
+		padding:0;
+		width:100%;
+		text-align: left;
+	}
+	.friend_name{
+		vertical-align: baseline;
+		display: inline-block;
+		padding-right:5px;
+	}
+	.status{
+		font-family: $bigFontFamily;
+		padding-right:5px;
+
+		vertical-align: baseline;
+		display: inline-block;
+	}
 }
+
 #friends_body{
 	overflow: scroll;
 	position: absolute;
@@ -202,8 +264,11 @@ $friends_padding : 52px;
 	border-top:3px dashed $grayLighter;
 	border-bottom:3px dashed $grayLighter;
 }
-.rel:first-child, .rel:last-child{
-	border: none;
+.rel:first-child{
+	border-top: none;
+}
+.rel:last-child{
+	border-bottom: none;
 }
 .prof,.status,.rel_info{
     letter-spacing: normal;
@@ -214,9 +279,27 @@ $friends_padding : 52px;
 	display: inline-block;
 }
 
-.isnot{
+.thumb #friends_body{
+	letter-spacing:-4px;
+	.rel{
+		display:inline-block;
+		letter-spacing:normal;
+		padding:15px 25px;
+		border-bottom:3px dashed $grayLighter;
+		border-top:none;
+		.rel_info{
+			display: none;
+		}
+		.mate_prof{
+			display: none;
+		}
+	}
 
+	//.rel:nth-child(3n-1){
+	//	background: #f7f8f9;
+	//}
 }
+
 $prof_width : 120px;
 
 .prof{
@@ -273,6 +356,40 @@ $prof_width : 120px;
 	background: url(../img/icons/heart.png) left 50% no-repeat;
 	padding-left:25px;
 }
+.engaged{
+	background: url(../img/icons/engaged.png) left 50% no-repeat;
+	padding-left:25px;
+}
+.separated{
+	background: url(../img/icons/separated.png) left 50% no-repeat;
+	padding-left:25px;
+}
+.divorced{
+	background: url(../img/icons/divorced.png) left 50% no-repeat;
+	padding-left:15px;
+}
+.married{
+	background: url(../img/icons/married.png) left 50% no-repeat;
+	padding-left:20px;
+}
+.female .single::before{
+	content: "\f000";
+	font-family: 'fontawesome';
+	//background: url(../img/icons/shoe.png) left 50% no-repeat;
+	padding-right:6px;
+	vertical-align: middle;
+	font-size:18px;
+	color:#f27460;
+	@include single-text-shadow;
+}
+.single{
+	background: url(../img/icons/beer.png) left 50% no-repeat;
+	padding-left:25px;
+}
+.female .single{
+	background: none;
+	padding-left:0;
+}
 .small_rel_info.in_a_relationship{
 	background-image: url(../img/icons/heart_small.png);
 	padding-left:18px;
@@ -282,14 +399,27 @@ $prof_width : 120px;
 	text-transform: capitalize;
 }
 
+aside{
+	padding-top: 15px;
+	h5{
+		font:18px / 28px $bigFontFamily;
+	}
+}
+#search{
+
+}
+#search_input{
+	border-radius: 5px;
+	border:1px solid $grayDark;
+	//text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+	padding:3px;
+}
 #sort{
 	font-size:14px;
 	color:$grayDark;
 	@include single-text-shadow;
-	padding-top:15px;
-	h5{
-		font:18px / 28px $bigFontFamily;
-	}
+
 }
 .sort_tags{
 	list-style: none;
@@ -314,15 +444,26 @@ $prof_width : 120px;
 .sort_tags label{
 	cursor: pointer;
 }
+.sort_tags .ammount{
+	color: lighten($gray,20%);
+	font-size:12px;
+	text-shadow: 0 1px 0 rgba(255,255,255,.2);
+}
+.sort_tags label i{
+	visibility: hidden;
+}
 .sort_tags input:checked + label{
     color: $blue;
-
 }
 
-body[data-state="disconnected"] #connected{
+.sort_tags input:checked + label i{
+    visibility: visible;
+}
+
+body.disconnected #connected{
     display: none;
 }
 
-body[data-state="connected"] #welcome{
+body.connected #welcome{
     display: none;
 }

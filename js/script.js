@@ -6,6 +6,8 @@ var game_of_profiles  = gop = {
     storage : {},
     templates : {},
     filters : {},
+    view : "list",
+    timeout : 0,
     rel_to_preposition : {
         "single" : "",
         "in_a_relationship"  : "with",
@@ -30,30 +32,30 @@ var game_of_profiles  = gop = {
         gop.templates.friends = _.template('<ul id="friends">' +
                 '<% _.each(friends, function(friend) { %>' +
                     '<% if(typeof friend.mate == "object"){ %>' +
-                    '<li class="rel <%=friend.sex%> hasmate">' +
+                    '<li class="rel <%=friend.sex%> hasmate" data-sex="<%=friend.sex%>">' +
                         '<div class="prof friend_prof">' +
-                            '<div class="prof_cont"><a href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a></div>' +
+                            '<div class="prof_cont"><a target="_blank" href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a></div>' +
                         '</div>' +
                         '<div class="rel_info">' +
-                            '<div class="friend_name"><a href="http://facebook.com/<%=friend.uid %>"><%=friend.name %></a></div>' +
+                            '<div class="friend_name"><a target="_blank" href="http://facebook.com/<%=friend.uid %>"><%=friend.name %></a></div>' +
                             '<div class="status <%=friend.rel_code%>"><%= friend.relationship_status.toLowerCase() %>&nbsp;' +
                                 '<div class="preposition"><%= gop.data.preposition(friend.relationship_status) %></div>' +
                             '</div>' +
-                            '<div class="friend_name mate_name"><a href="http://facebook.com/<%=friend.mate.uid%>"><%=friend.mate.name %></a></div>' +
+                            '<div class="friend_name mate_name"><a target="_blank" href="http://facebook.com/<%=friend.mate.uid%>"><%=friend.mate.name %></a></div>' +
                         '</div>' +
                         '<div class="prof mate_prof">' +
-                            '<div class="prof_cont"><a class="prof_pic" href="http://facebook.com/<%=friend.mate.uid %>" style="background-image:url(<%=friend.mate.pic %>)"></a></div>' +
+                            '<div class="prof_cont"><a class="prof_pic" target="_blank" href="http://facebook.com/<%=friend.mate.uid %>" style="background-image:url(<%=friend.mate.pic %>)"></a></div>' +
                         '</div>' +
                     '</li> ' +
                     '<% }else{ %>' +
-                    '<li class="rel <%=friend.sex%>">' +
+                    '<li class="rel <%=friend.sex%>" data-sex="<%=friend.sex%>">' +
                         '<div class="prof friend_prof">' +
-                            '<div class="prof_cont"><a href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a></div>' +
+                            '<div class="prof_cont"><a target="_blank" href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a></div>' +
                         '</div>' +
                         '<div class="rel_info nomate_info">' +
-                        '<div class="friend_name"><a href="http://facebook.com/<%=friend.uid %>"><%=friend.name %></a></div>' +
+                        '<div class="friend_name"><a target="_blank" href="http://facebook.com/<%=friend.uid %>"><%=friend.name %></a></div>' +
                         '<% if(friend.relationship_status != "undefined"){ %>' +
-                            '<div class="status <%=friend.rel_code%>"><div class="is">is</div> <%= friend.relationship_status.toLowerCase() %>&nbsp;</div>' +
+                            '<div class="status <%=friend.rel_code%>"><%= friend.relationship_status.toLowerCase() %>&nbsp;</div>' +
                         '<% } %>' +
                         '<% if(friend.relationship_status == "undefined"){ %>' +
                             '<div class="is isnot status">is not sharing relationship info</div>' +
@@ -70,7 +72,9 @@ var game_of_profiles  = gop = {
         $.subscribe('fb/status',gop.data.getUserFromFB);
         $.subscribe('fb/connected',gop.connected);
         $.subscribe('fb/fetched_friends',gop.ui.render);
+        $.subscribe('fb/fetched_friends',gop.bindDependantEvents);
         $.subscribe('fb/fetched_friends',gop.data.groupByStatus);
+        $.subscribe('fb/fetched_friends',gop.ui.addCountToFilters);
 
 //        FB.Event.subscribe('auth.statusChange',function(response) {
 //             $.publish('fb/status',response);
@@ -78,8 +82,8 @@ var game_of_profiles  = gop = {
 
         $('#sort').on('click',".sort_by",function(e){
            window.setTimeout(function(){
-               var elms = $('.sort_tags input').filter(function(){
-                   return $(this).prop('checked');
+               var elms = $('.sort_tags li').filter(function(){
+                   return $(this).find('input').prop('checked');
                });
                gop.filters = {};
                elms.each(function () {
@@ -87,11 +91,46 @@ var game_of_profiles  = gop = {
                    if(typeof gop.filters[filter_cat] == 'undefined'){
                         gop.filters[filter_cat] = [];
                    }
-                   gop.filters[filter_cat].push($(this).prop('id').split(" ").join('_'));
+                   gop.filters[filter_cat].push($(this).data('status'));
                });
                gop.data.filterCouples();
            },100);
-
+        });
+        $('#view_cont').on('click',".view",function(){
+            gop.ui.changeView($(this).attr('id'));
+        });
+        $('#friends_body').on('mouseenter',".rel",function(){
+            if(gop.view == 'thumb'){
+                clearTimeout(gop.timeout);
+                $friend = $(this);
+                gop.timeout = setTimeout(function(){
+                    $('#friends_footer').html($friend.find('.rel_info').clone());
+                    $('#friends_footer')[0].className = $friend.data('sex');
+                },250);
+            }
+        });
+        $('#friends_body').on('mouseleave',function(){
+            if(gop.view == 'thumb'){
+                clearTimeout(gop.timeout);
+            }
+        });
+        $('#friends_cont').on('mouseleave',function(){
+            $('#friends_footer').html();
+        });
+    },
+    bindDependantEvents : function(e,data){
+        $('#search_input').typeahead({
+           source : _.map(gop.data.friends,function(friend){return friend.name}),
+           event : function(items){
+               if(items !== false){
+                   var friends_arr = _.filter(gop.data.friends,function(friend){
+                       return (_.indexOf(items,friend.name) > -1);
+                   });
+                   gop.ui.render(null,friends_arr);
+               }else{
+                   gop.ui.render(null,gop.data.friends);
+               }
+           }
         });
     },
     connected : function(e,data){
@@ -102,8 +141,14 @@ var game_of_profiles  = gop = {
 gop.data = {
     friends : {},
     mates : {},
-    by_status : {},
-    by_sex : {},
+    count : {
+        sex : {
+            male : 0,
+            female : 0
+        },
+        rel_code : {}
+    },
+
     getFriends : function(){
         if(!gop.debug){
             gop.data.getFriendsFromFB();
@@ -142,7 +187,6 @@ gop.data = {
         }
         for (var i = 0; i < friends_array.length; i++) {
             var friend = friends_array[i];
-            console.log(friend.interested_in);
             var his_mate = gop.data.mates[friend.significant_other_id];
             friend["mate"] = his_mate;
             if (friend.relationship_status != null) {
@@ -150,6 +194,18 @@ gop.data = {
             } else {
                 rel_status = "undefined";
                 friend.relationship_status = "undefined";
+            }
+            //count friends by sex
+            if(friend.sex == 'male'){
+                gop.data.count.sex.male += 1;
+            }else{
+                gop.data.count.sex.female += 1;
+            }
+            //count friends by status
+            if(typeof gop.data.count.rel_code[rel_status] == 'undefined'){
+                gop.data.count.rel_code[rel_status] = 1;
+            }else{
+                gop.data.count.rel_code[rel_status] += 1;
             }
             friend["rel_code"] = rel_status;
         }
@@ -188,15 +244,37 @@ gop.data = {
 
 gop.ui = {
     renderStatusFilters:function () {
-        var tmpl = '<h5>Relationship Status:</h5><ul class="sort_tags"><% _.each(statuses,function(status){ %><li><input type="checkbox" data-category="rel_code" name="<%= status %>" id="<%= status %>"><label for="<%= status %>" class="sort_by"><%= status.split("_").join(" ") %></label></li> <% }) %></ul>';
+        var tmpl = '<ul class="sort_tags"><% _.each(statuses,function(status){ %><li data-category="rel_code"  data-status="<%= status %>"><input type="checkbox" name="<%= status %>" id="<%= status %>"><label for="<%= status %>" class="sort_by"><i class="icon-tag"></i><span class="filter"><%= status.split("_").join(" ") %></span> <span class="ammount"></span></label></li> <% }) %></ul>';
         var tmpl_data = {"statuses":gop.data.statuses};
         var html = _.template(tmpl, tmpl_data);
         $('#sort').append(html);
+    },
+    addCountToFilters: function(){
+        $('.sort_tags li').each(function(){
+            var category = $(this).data('category');
+            var filter = $(this).data('status');
+            var count = gop.data.count[category][filter];
+            if(!count>0){count = 0};
+            $(this).find('.ammount').html('(' + count + ')');
+        })
     },
     render:function (e, friends_array) {
         friends_array = friends_array || gop.data.friends;
         var html = gop.templates.friends({friends:friends_array});
         $('#friends_body').empty().append(html);
+        gop.ui.renderCountString(friends_array.length);
+    },
+    renderCountString : function(length){
+        var sex_filters = '',rel_code ='';
+        if(gop.filters.sex && gop.filters.sex.length == 1){
+            sex_filters = gop.filters.sex.join(', ');
+        }
+        if(gop.filters.rel_code){
+            rel_code = gop.filters.rel_code.join(', ');
+        }
+
+        $('#showing').html('Showing <span class="count">'+ length +'</span> '+ sex_filters +' friends');
+
     },
     renderUser : function(e, data){
         data.rel_code = data.relationship_status.toLowerCase().split(" ").join("_");
@@ -207,10 +285,16 @@ gop.ui = {
     },
     setState:function (e, status) {
         status = status || 'disconnected';
-        document.body.dataset.state = status;
+        document.body.className = status;
         if (status == 'connected') {
             $.publish('fb/connected', status)
         }
+    },
+    changeView : function(newView){
+        $('.view').removeClass('selected');
+        $('#' + newView).addClass('selected');
+        gop.view = newView;
+        $('#friends_cont')[0].className  = newView ;
     }
 }
 //window.fbAsyncInit = gop.init;
