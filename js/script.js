@@ -310,7 +310,7 @@ window.fbAsyncInit = function() {
 
 
 function FB_update_status(response) {
-      var $button = $('#login');
+      var $button = $('.login');
       if (response.authResponse) {
           gop.init();
           $button.on('click',function () {

@@ -49,7 +49,8 @@ $linkColorHover:        darken($linkColor, 15%) !default;
 $sansFontFamily:        "Helvetica Neue", Helvetica, Arial, sans-serif !default;
 $serifFontFamily:       Georgia, "Times New Roman", Times, serif !default;
 $monoFontFamily:        Menlo, Monaco, Consolas, "Courier New", monospace !default;
-$bigFontFamily:			"chunkfive", $serifFontFamily;
+$bigFontFamily:			"BitterBold", $serifFontFamily;
+$bigFontFamilyRegular:			"BitterRegular", $serifFontFamily;
 
 $baseFontSize:          13px !default;
 $baseFontFamily:        $sansFontFamily !default;
@@ -216,15 +217,41 @@ $default-text-shadow-blur: 		0px;
 $font_path: "fonts/" !default;
 
 @font-face {
-    font-family: 'chunkfive';
-    src: url('#{$font_path}Chunkfive-webfont.eot');
-    src: url('#{$font_path}Chunkfive-webfont.eot?#iefix') format('embedded-opentype'),
-         url('#{$font_path}Chunkfive-webfont.woff') format('woff'),
-         url('#{$font_path}Chunkfive-webfont.ttf') format('truetype'),
-         url('#{$font_path}Chunkfive-webfont.svg#ChunkFiveRegular') format('svg');
+    font-family: 'BitterRegular';
+    src: url('#{$font_path}Bitter-Regular-webfont.eot');
+    src: url('#{$font_path}Bitter-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font_path}Bitter-Regular-webfont.woff') format('woff'),
+         url('#{$font_path}Bitter-Regular-webfont.ttf') format('truetype'),
+         url('#{$font_path}Bitter-Regular-webfont.svg#BitterRegular') format('svg');
     font-weight: normal;
     font-style: normal;
+
 }
+
+@font-face {
+    font-family: 'BitterItalic';
+    src: url('#{$font_path}Bitter-Italic-webfont.eot');
+    src: url('#{$font_path}Bitter-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font_path}Bitter-Italic-webfont.woff') format('woff'),
+         url('#{$font_path}Bitter-Italic-webfont.ttf') format('truetype'),
+         url('#{$font_path}Bitter-Italic-webfont.svg#BitterItalic') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'BitterBold';
+    src: url('#{$font_path}Bitter-Bold-webfont.eot');
+    src: url('#{$font_path}Bitter-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('#{$font_path}Bitter-Bold-webfont.woff') format('woff'),
+         url('#{$font_path}Bitter-Bold-webfont.ttf') format('truetype'),
+         url('#{$font_path}Bitter-Bold-webfont.svg#BitterBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 
 @font-face {
     font-family: 'FontAwesome';
