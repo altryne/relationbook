@@ -1972,7 +1972,7 @@ footer a {
   text-align: left;
   list-style: none;
   position: relative;
-  padding: 20px 40px 20px 50px;
+  padding: 15px 25px;
 }
 
 .rel:nth-child(2n-1) {
@@ -2075,7 +2075,7 @@ footer a {
 
 .rel_info {
   text-align: center;
-  width: 290px;
+  width: 330px;
   padding: 0 20px;
   color: #494e57;
   font-size: 18px;
