@@ -8,7 +8,10 @@ html{
 }
 body{
   background: url(../img/hearts.png) 50% top no-repeat fixed;
-  min-height: 100%;
+  height: 100%;
+  min-height: 700px;
+  position: relative;
+  min-width:900px;
 }
 
 
@@ -41,6 +44,7 @@ header{
 .small_rel_info{
 	display: inline-block;
 	font-family: $bigFontFamily;
+    text-rendering: optimizeLegibility;
 }
 #logo{
   background: url(../img/logo.png) left bottom no-repeat;
@@ -57,7 +61,7 @@ header{
   	margin: 0;
 	margin-left: 85px;
   	height: 20px;
-    background: #fff;
+    background: #EDEFF2;
 	text-align : center;
 	letter-spacing:-1px;
   	@include box-shadow(0 1px 2px rgba(0,0,0,.2));
@@ -158,6 +162,7 @@ footer{
 	overflow: hidden;
 	position: relative;
 	height: 100%;
+	min-height: 500px;
 	margin-left:-50px;
 	width:680px;
 	float:left;
@@ -188,16 +193,16 @@ $friends_padding : 52px;
 
 #view_cont{
 	position: absolute;
-	right:10px;
+	right:0px;
 	top:0px;
 	text-align: center;
-	background: $grayLighter;
+	//background: $grayLighter;
 	font-size: 20px;
 	margin-top:10px;
-	margin-left:25px;
+	margin-left:10px;
 	border-radius:5px;
-	padding: 5px 15px;
-	letter-spacing: 5px;
+	padding: 5px 10px;
+	letter-spacing: 0px;
 }
 .view{
 	display: inline-block;
@@ -400,21 +405,51 @@ $prof_width : 120px;
 }
 
 aside{
-	padding-top: 15px;
-	h5{
-		font:18px / 28px $bigFontFamily;
-	}
-}
-#search{
 
+	h5{
+		font:18px / 45px $bigFontFamilyRegular;
+        color: $grayDarker;
+        text-shadow: 5px 0 0 rgba(255,255,255,.4);
+        text-rendering: optimizeLegibility;
+	}
+    hr{
+      width:60%;
+      padding: 0 18px;
+    }
+}
+#search_cont{
+  position: relative;
 }
 #search_input{
 	border-radius: 5px;
-	border:1px solid $grayDark;
-	//text-shadow: 0 1px 0 rgba(0,0,0,0.5);
-	box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    font-size: 16px;
+
+	box-shadow: 0 2px 0 rgba(0,0,0,0.1);
+    border:0;
 	padding:3px;
+    width:150px;
+    padding:8px;
+    padding-right:40px;
+    outline: none;
 }
+#clear_search{
+  font-size: 25px;
+  position: absolute;
+  right:87px;top:8px;
+  width:15px;height:15px;
+  cursor: pointer;
+  display: none;
+	&:hover{
+		color:$blue;
+	}
+}
+#search_cont.active #clear_search{
+  display: block;
+}
+.typeahead{
+  width:195px;
+}
+
 #sort{
 	font-size:14px;
 	color:$grayDark;
@@ -429,7 +464,7 @@ aside{
 		padding:0;
 		margin:0;
 		font-weight: bold;
-		line-height:20px;
+		line-height:24px;
 
 	}
 	li:first-letter{
@@ -443,6 +478,10 @@ aside{
 }
 .sort_tags label{
 	cursor: pointer;
+    text-transform: capitalize;
+}
+.sort_tags .filter:first-letter{
+  color:green;
 }
 .sort_tags .ammount{
 	color: lighten($gray,20%);

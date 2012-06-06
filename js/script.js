@@ -127,11 +127,18 @@ var game_of_profiles  = gop = {
                        return (_.indexOf(items,friend.name) > -1);
                    });
                    gop.ui.render(null,friends_arr);
+                   $('#search_cont').addClass('active');
                }else{
                    gop.ui.render(null,gop.data.friends);
+                   $('#search_cont').removeClass('active');
                }
            }
         });
+	    $('#clear_search').on('click',function(){
+		    gop.ui.render(null,gop.data.friends);
+           $('#search_cont').removeClass('active');
+		   $('#search_input').val('');
+	    })
     },
     connected : function(e,data){
         gop.data.getFriends();

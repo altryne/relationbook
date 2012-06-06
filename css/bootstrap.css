@@ -718,7 +718,7 @@ cite {
 .dropdown-menu .active > a:hover {
   color: white;
   text-decoration: none;
-  background-color: #7e8793;
+  background-color: #4d74b8;
 }
 
 .open {
@@ -1667,7 +1667,10 @@ html {
 
 body {
   background: url(../img/hearts.png) 50% top no-repeat fixed;
-  min-height: 100%;
+  height: 100%;
+  min-height: 700px;
+  position: relative;
+  min-width: 900px;
 }
 
 /* ==========================================================================
@@ -1701,6 +1704,7 @@ header {
 .small_rel_info {
   display: inline-block;
   font-family: "BitterBold", Georgia, "Times New Roman", Times, serif;
+  text-rendering: optimizeLegibility;
 }
 
 #logo {
@@ -1719,7 +1723,7 @@ header {
   margin: 0;
   margin-left: 85px;
   height: 20px;
-  background: #fff;
+  background: #EDEFF2;
   text-align: center;
   letter-spacing: -1px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
@@ -1829,6 +1833,7 @@ footer a {
   overflow: hidden;
   position: relative;
   height: 100%;
+  min-height: 500px;
   margin-left: -50px;
   width: 680px;
   float: left;
@@ -1859,16 +1864,15 @@ footer a {
 
 #view_cont {
   position: absolute;
-  right: 10px;
+  right: 0px;
   top: 0px;
   text-align: center;
-  background: #eeeeee;
   font-size: 20px;
   margin-top: 10px;
-  margin-left: 25px;
+  margin-left: 10px;
   border-radius: 5px;
-  padding: 5px 15px;
-  letter-spacing: 5px;
+  padding: 5px 10px;
+  letter-spacing: 0px;
 }
 
 .view {
@@ -2079,18 +2083,53 @@ footer a {
   text-transform: capitalize;
 }
 
-aside {
-  padding-top: 15px;
-}
 aside h5 {
-  font: 18px/28px "BitterBold", Georgia, "Times New Roman", Times, serif;
+  font: 18px/45px "BitterRegular", Georgia, "Times New Roman", Times, serif;
+  color: #494e57;
+  text-shadow: 5px 0 0 rgba(255, 255, 255, 0.4);
+  text-rendering: optimizeLegibility;
+}
+aside hr {
+  width: 60%;
+  padding: 0 18px;
+}
+
+#search_cont {
+  position: relative;
 }
 
 #search_input {
   border-radius: 5px;
-  border: 1px solid #7e8793;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  font-size: 16px;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+  border: 0;
   padding: 3px;
+  width: 150px;
+  padding: 8px;
+  padding-right: 40px;
+  outline: none;
+}
+
+#clear_search {
+  font-size: 25px;
+  position: absolute;
+  right: 87px;
+  top: 8px;
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  display: none;
+}
+#clear_search:hover {
+  color: #4d74b8;
+}
+
+#search_cont.active #clear_search {
+  display: block;
+}
+
+.typeahead {
+  width: 195px;
 }
 
 #sort {
@@ -2108,7 +2147,7 @@ aside h5 {
   padding: 0;
   margin: 0;
   font-weight: bold;
-  line-height: 20px;
+  line-height: 24px;
 }
 .sort_tags li:first-letter {
   text-transform: capitalize;
@@ -2121,6 +2160,11 @@ aside h5 {
 
 .sort_tags label {
   cursor: pointer;
+  text-transform: capitalize;
+}
+
+.sort_tags .filter:first-letter {
+  color: green;
 }
 
 .sort_tags .ammount {
