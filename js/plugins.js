@@ -84,6 +84,7 @@ function getAge(dateString) {
     this.shown = false
     this.listen()
     this.event = this.options.event
+    this.clear = this.options.clear
   }
 
   Typeahead.prototype = {
@@ -244,6 +245,7 @@ function getAge(dateString) {
         case 27: // escape
           if (!this.shown) return
           this.hide()
+          this.clear()
           break
 
         default:

@@ -63,3 +63,31 @@
 
 // Utility classes
 @import "utilities"; // Has to be last to override when necessary
+
+@import "icons/*.png";
+
+.status{
+  &.engaged::before    { @include icons-sprite(engaged);    }
+  .female &.single::before { @include icons-sprite(female_single);   }
+  .male &.single::before { @include icons-sprite(male_single);   }
+  &.married::before   { @include icons-sprite(married);   }
+  .female &.divorced::before { @include icons-sprite(female_divorced); }
+  .male &.divorced::before { @include icons-sprite(male_divorced); }
+  &.in_a_relationship::before { @include icons-sprite(in_a_relationship); }
+  &.in_an_open_relationship::before { @include icons-sprite(in_an_open_relationship); }
+  &.it-s_complicated::before { @include icons-sprite(its_complicated); }
+  &.widowed::before { @include icons-sprite(widowed); }
+  &.separated::before { @include icons-sprite(separated); }
+  &.isnot::before,&.undefined::before { @include icons-sprite(undefined);}
+
+}
+.status::before{
+	background-repeat: no-repeat;
+	padding-left:5px;
+	content:"";
+	width:25px;
+	height: 25px;
+	display: inline-block;
+	vertical-align: middle;
+	line-height: 25px;
+}

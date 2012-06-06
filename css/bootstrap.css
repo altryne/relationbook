@@ -1666,11 +1666,47 @@ html {
 }
 
 body {
-  background: url(../img/hearts.png) 50% top no-repeat fixed;
+  background: url(../img/bg/all.png) 50% top no-repeat fixed;
   height: 100%;
   min-height: 700px;
   position: relative;
   min-width: 900px;
+}
+
+body.all {
+  background-image: url(../img/bg/all.png);
+}
+
+body.male.single {
+  background-image: url(../img/bg/male_single.png);
+}
+
+body.female.single {
+  background-image: url(../img/bg/female_single.png);
+}
+
+body.complicated {
+  background-image: url(../img/bg/complicated.png);
+}
+
+body.engaged {
+  background-image: url(../img/bg/engaged.png);
+}
+
+body.in_a_relationship {
+  background-image: url(../img/bg/in_a_relationship.png);
+}
+
+body.in_an_open_relationship {
+  background-image: url(../img/bg/in_an_open_relationship.png);
+}
+
+body.it-s_complicated {
+  background-image: url(../img/bg/complicated.png);
+}
+
+body.married {
+  background-image: url(../img/bg/married.png);
 }
 
 /* ==========================================================================
@@ -1850,12 +1886,12 @@ footer a {
 
 #showing {
   height: 100%;
-  width: 80%;
+  width: 100%;
   font-size: 18px;
   font-family: "BitterRegular", Georgia, "Times New Roman", Times, serif;
   text-shadow: 0px 1px 0px white;
   line-height: 50px;
-  padding-left: 55px;
+  text-align: center;
 }
 #showing .count {
   color: #4d74b8;
@@ -1914,6 +1950,9 @@ footer a {
   vertical-align: baseline;
   display: inline-block;
 }
+.list #friends_footer .rel_info {
+  display: none;
+}
 
 #friends_body {
   overflow: scroll;
@@ -1967,6 +2006,8 @@ footer a {
   display: inline-block;
   letter-spacing: normal;
   padding: 15px 20px 15px 25px;
+  box-sizing: border-box;
+  width: 25%;
   border-bottom: 3px dashed #eeeeee;
   border-top: none;
 }
@@ -1983,6 +2024,7 @@ footer a {
 
 .prof_cont {
   background: white;
+  position: relative;
   border: 1px solid #ced0d1;
   padding: 5px;
   width: 105px;
@@ -1993,6 +2035,23 @@ footer a {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
+}
+.prof_cont i {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: white;
+  padding: 3px 0 0 3px;
+  border-top-left-radius: 5px;
+  opacity: 0;
+  -webkit-transition: opacity 200ms linear;
+  -moz-transition: opacity 200ms linear;
+  -ms-transition: opacity 200ms linear;
+  -o-transition: opacity 200ms linear;
+  transition: opacity 200ms linear;
+}
+.thumb .prof_cont i {
+  opacity: 1;
 }
 
 .prof_pic {
@@ -2028,53 +2087,10 @@ footer a {
   color: #4d74b8;
 }
 
-.in_a_relationship {
-  background: url(../img/icons/heart.png) left 50% no-repeat;
-  padding-left: 25px;
-}
-
-.engaged {
-  background: url(../img/icons/engaged.png) left 50% no-repeat;
-  padding-left: 25px;
-}
-
-.separated {
-  background: url(../img/icons/separated.png) left 50% no-repeat;
-  padding-left: 25px;
-}
-
-.divorced {
-  background: url(../img/icons/divorced.png) left 50% no-repeat;
-  padding-left: 15px;
-}
-
-.married {
-  background: url(../img/icons/married.png) left 50% no-repeat;
-  padding-left: 20px;
-}
-
-.female .single::before {
-  content: "\f000";
-  font-family: 'fontawesome';
-  padding-right: 6px;
-  vertical-align: middle;
-  font-size: 18px;
-  color: #f27460;
-  text-shadow: 0px 1px 0px white;
-}
-
-.single {
-  background: url(../img/icons/beer.png) left 50% no-repeat;
-  padding-left: 25px;
-}
-
-.female .single {
-  background: none;
-  padding-left: 0;
-}
-
 .small_rel_info.in_a_relationship {
   background-image: url(../img/icons/heart_small.png);
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
   padding-left: 18px;
   margin-left: 2px;
 }
@@ -2219,4 +2235,56 @@ body.connected #welcome {
   text-shadow: none;
   color: transparent;
   background-color: transparent;
+}
+
+.icons-sprite, .status.engaged::before, .female .status.single::before, .male .status.single::before, .status.married::before, .female .status.divorced::before, .male .status.divorced::before, .status.in_a_relationship::before, .status.in_an_open_relationship::before, .status.it-s_complicated::before, .status.widowed::before, .status.separated::before, .status.isnot::before, .status.undefined::before {
+  background: url('../img/icons-sb3867b1e51.png') no-repeat;
+}
+
+.status.engaged::before {
+  background-position: 0 -25px;
+}
+.female .status.single::before {
+  background-position: 0 -175px;
+}
+.male .status.single::before {
+  background-position: 0 -288px;
+}
+.status.married::before {
+  background-position: 0 -50px;
+}
+.female .status.divorced::before {
+  background-position: 0 -238px;
+}
+.male .status.divorced::before {
+  background-position: 0 -263px;
+}
+.status.in_a_relationship::before {
+  background-position: 0 -213px;
+}
+.status.in_an_open_relationship::before {
+  background-position: 0 -75px;
+}
+.status.it-s_complicated::before {
+  background-position: 0 0;
+}
+.status.widowed::before {
+  background-position: 0 -100px;
+}
+.status.separated::before {
+  background-position: 0 -150px;
+}
+.status.isnot::before, .status.undefined::before {
+  background-position: 0 -125px;
+}
+
+.status::before {
+  background-repeat: no-repeat;
+  padding-left: 5px;
+  content: "";
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 25px;
 }

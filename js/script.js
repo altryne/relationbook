@@ -13,7 +13,7 @@ var game_of_profiles  = gop = {
         "in_a_relationship"  : "with",
         "engaged" : "to",
         "married" : "to",
-        "it's_complicated" : "with",
+        "it-s_complicated" : "with",
         "in_an_open_relationship" : "width",
         "widowed" : "",
         "separated" : "",
@@ -34,11 +34,11 @@ var game_of_profiles  = gop = {
                     '<% if(typeof friend.mate == "object"){ %>' +
                     '<li class="rel <%=friend.sex%> hasmate" data-sex="<%=friend.sex%>">' +
                         '<div class="prof friend_prof">' +
-                            '<div class="prof_cont"><a target="_blank" href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a></div>' +
+                            '<div class="prof_cont"><a target="_blank" href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a><i class="status <%= friend.rel_code%>"></i></div>' +
                         '</div>' +
                         '<div class="rel_info">' +
                             '<div class="friend_name"><a target="_blank" href="http://facebook.com/<%=friend.uid %>"><%=friend.name %></a></div>' +
-                            '<div class="status <%=friend.rel_code%>"><%= friend.relationship_status.toLowerCase() %>&nbsp;' +
+                            '<div class="status <%=friend.rel_code %>"><%= friend.relationship_status.toLowerCase() %>&nbsp;' +
                                 '<div class="preposition"><%= gop.data.preposition(friend.relationship_status) %></div>' +
                             '</div>' +
                             '<div class="friend_name mate_name"><a target="_blank" href="http://facebook.com/<%=friend.mate.uid%>"><%=friend.mate.name %></a></div>' +
@@ -50,7 +50,7 @@ var game_of_profiles  = gop = {
                     '<% }else{ %>' +
                     '<li class="rel <%=friend.sex%>" data-sex="<%=friend.sex%>">' +
                         '<div class="prof friend_prof">' +
-                            '<div class="prof_cont"><a target="_blank" href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a></div>' +
+                            '<div class="prof_cont"><a target="_blank" href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a><i class="status <%= friend.rel_code %>"></i></div>' +
                         '</div>' +
                         '<div class="rel_info nomate_info">' +
                         '<div class="friend_name"><a target="_blank" href="http://facebook.com/<%=friend.uid %>"><%=friend.name %></a></div>' +
@@ -132,13 +132,10 @@ var game_of_profiles  = gop = {
                    gop.ui.render(null,gop.data.friends);
                    $('#search_cont').removeClass('active');
                }
-           }
+           },
+           clear : gop.ui.clearSearch()
         });
-	    $('#clear_search').on('click',function(){
-		    gop.ui.render(null,gop.data.friends);
-           $('#search_cont').removeClass('active');
-		   $('#search_input').val('');
-	    })
+	    $('#clear_search').on('click',gop.ui.clearSearch);
     },
     connected : function(e,data){
         gop.data.getFriends();
@@ -197,7 +194,7 @@ gop.data = {
             var his_mate = gop.data.mates[friend.significant_other_id];
             friend["mate"] = his_mate;
             if (friend.relationship_status != null) {
-                rel_status = friend.relationship_status.toLowerCase().split(" ").join("_");
+                rel_status = friend.relationship_status.toLowerCase().split(" ").join("_").split("'").join("-");
             } else {
                 rel_status = "undefined";
                 friend.relationship_status = "undefined";
@@ -221,7 +218,7 @@ gop.data = {
     },
     preposition : function(rel_status){
         rel_status = rel_status || 'undefined';
-        rel_status = rel_status.toLowerCase().split(" ").join("_");
+        rel_status = rel_status.toLowerCase().split(" ").join("_").split("'").join("-");
         return gop.rel_to_preposition[rel_status];
     },
     groupByStatus: function(e,object) {
@@ -231,6 +228,7 @@ gop.data = {
     filterCouples : function(){
         gop.data.friends_by_status =  _.filter(gop.data.friends,function(friend) {return gop.data.friendMatchesFilters(friend)});
         gop.ui.render(null,gop.data.friends_by_status);
+        gop.ui.renderBG();
     },
     friendMatchesFilters : function(friend){
         var score = 0;
@@ -251,7 +249,7 @@ gop.data = {
 
 gop.ui = {
     renderStatusFilters:function () {
-        var tmpl = '<ul class="sort_tags"><% _.each(statuses,function(status){ %><li data-category="rel_code"  data-status="<%= status %>"><input type="checkbox" name="<%= status %>" id="<%= status %>"><label for="<%= status %>" class="sort_by"><i class="icon-tag"></i><span class="filter"><%= status.split("_").join(" ") %></span> <span class="ammount"></span></label></li> <% }) %></ul>';
+        var tmpl = '<ul class="sort_tags"><% _.each(statuses,function(status){ %><li data-category="rel_code"  data-status="<%= status %>"><input type="checkbox" name="<%= status %>" id="<%= status %>"><label for="<%= status %>" class="sort_by"><i class="icon-tag"></i><span class="filter"><%= status.split("_").join(" ").split("-").join("\'") %></span> <span class="ammount"></span></label></li> <% }) %></ul>';
         var tmpl_data = {"statuses":gop.data.statuses};
         var html = _.template(tmpl, tmpl_data);
         $('#sort').append(html);
@@ -284,17 +282,35 @@ gop.ui = {
 
     },
     renderUser : function(e, data){
-        data.rel_code = data.relationship_status.toLowerCase().split(" ").join("_");
+        data.rel_code = data.relationship_status.toLowerCase().split(" ").join("_").split("'").join("-");
         var tmpl = '<div class="small_user_pic" style="background-image:url(https://graph.facebook.com/<%=user.id%>/picture)"/> Hi <%=user.first_name%>, you are <div class="small_rel_info <%=user.rel_code %>"><%=user.relationship_status%></div> | <a href="#" id="logout">logout</a>';
         var tmpl_data = {"user":data};
         var html = _.template(tmpl, tmpl_data);
-        $('.userdata').append(html);
+        $('.userdata').append(html).data({'sex':data.sex,'rel_code':data.rel_code});
+        gop.ui.renderBG(data.rel_code,data.sex);
     },
-    setState:function (e, status) {
-        status = status || 'disconnected';
-        document.body.className = status;
-        if (status == 'connected') {
-            $.publish('fb/connected', status)
+    renderBG : function(rel_code,sex){
+        $body = $('body');
+        $body[0].className = '';
+        $body.addClass($body.data('state'));
+        if(gop.filters && gop.filters.rel_code){
+            if(gop.filters.sex && gop.filters.sex.length == 1){
+                sex = gop.filters.sex[0];
+            }else{
+                sex = $('.userdata').data('sex');
+            }
+            rel_code = (gop.filters.rel_code.length == 1) ? gop.filters.rel_code[0] : 'all';
+        }else{
+            sex = $('.userdata').data('sex');
+            rel_code = $('.userdata').data('rel_code');
+        }
+        $body.addClass(rel_code).addClass(sex);
+    },
+    setState:function (e, state ) {
+        state = state || 'disconnected';
+        $('body').removeClass('disconnected connected').addClass(state).attr('data-state',state);
+        if (state == 'connected') {
+            $.publish('fb/connected', state)
         }
     },
     changeView : function(newView){
@@ -302,6 +318,11 @@ gop.ui = {
         $('#' + newView).addClass('selected');
         gop.view = newView;
         $('#friends_cont')[0].className  = newView ;
+    },
+    clearSearch : function(){
+        gop.ui.render(null, gop.data.friends);
+        $('#search_cont').removeClass('active');
+        $('#search_input').val('');
     }
 }
 //window.fbAsyncInit = gop.init;
