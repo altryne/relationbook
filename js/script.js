@@ -377,13 +377,7 @@ gop.ui = {
 }
 //window.fbAsyncInit = gop.init;
 
-window.fbAsyncInit = function() {
-  FB.init({ appId: '397573470274307',
-	    status: true,
-	    cookie: true,
-	    xfbml: true,
-	    oauth: true
-  });
+
 
 
 
@@ -409,6 +403,17 @@ function FB_update_status(response) {
       }
   }
        // run once with current status and whenever the status changes
-  FB.getLoginStatus(FB_update_status);
+
 //  FB.Event.subscribe('auth.statusChange', FB_update_status);
-}
+
+
+$('document').ready(function(){
+	FB.init({ appId: '397573470274307',
+        status: true,
+        cookie: true,
+        xfbml: true,
+        oauth: true
+	 });
+
+	FB.getLoginStatus(FB_update_status);
+});
