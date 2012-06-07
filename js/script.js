@@ -140,6 +140,13 @@ var game_of_profiles  = gop = {
            clear : gop.ui.clearSearch()
         });
 	    $('#clear_search').on('click',gop.ui.clearSearch);
+        $('#logout').on('click',function () {
+             FB.logout(function (response) {
+                 console.log(response);
+                 window.location = window.location;
+  //               $.publish('fb/status','disconnected');
+             });
+        });
     },
     connected : function(e,data){
         gop.data.getFriends();
