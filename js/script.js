@@ -172,6 +172,7 @@ gop.data = {
         }
     },
     getFriendsFromFB : function(){
+	    gop.ui.updateProgress(20);
         FB.api(
             {
                 method:'fql.multiquery',
@@ -181,6 +182,7 @@ gop.data = {
                 }
             },
             function (data) {
+	            gop.ui.updateProgress(60);
                 gop.data.handleFriends(data);
             }
         );
@@ -243,6 +245,7 @@ gop.data = {
         gop.ui.renderBG();
     },
     checkFilters : function(){
+	    gop.ui.updateProgress(100);
         if(!gop.conf.filters.sex && !gop.conf.filters.rel_code){
             //no filters are selected , render default friends list
             gop.ui.render();
@@ -373,7 +376,10 @@ gop.ui = {
         gop.ui.render(null, gop.data.friends);
         $('#search_cont').removeClass('active');
         $('#search_input').val('');
-    }
+    },
+	updateProgress  : function(width){
+		$('.bar').width(width);
+	}
 }
 //window.fbAsyncInit = gop.init;
 

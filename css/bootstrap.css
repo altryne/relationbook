@@ -1882,6 +1882,9 @@ footer a {
 }
 
 #friends_header {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
   box-sizing: border-box;
   height: 52px;
   border-bottom: 3px dashed #eeeeee;
@@ -1909,7 +1912,7 @@ footer a {
   right: 0px;
   top: 0px;
   text-align: center;
-  font-size: 20px;
+  font-size: 22px;
   margin-top: 10px;
   margin-left: 10px;
   border-radius: 5px;
@@ -1928,6 +1931,9 @@ footer a {
 }
 
 #friends_footer {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
   box-sizing: border-box;
   height: 52px;
   border-top: 3px dashed #eeeeee;
@@ -1968,6 +1974,34 @@ footer a {
   bottom: 52px;
   left: 0;
   right: 0;
+}
+#friends_body .progress {
+  width: 200px;
+  margin-left: -100px;
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  overflow: visible;
+}
+#friends_body .progress .preload_text {
+  letter-spacing: normal;
+  font-size: 15px;
+  text-align: center;
+  padding-top: 10px;
+  font-family: "BitterRegular", Georgia, "Times New Roman", Times, serif;
+}
+#friends_body .progress .bar {
+  position: relative;
+  border-radius: 3px;
+  height: 94%;
+  width: 20%;
+  margin-left: 2px;
+  margin-top: 1px;
+  -webkit-transition: width 250ms ease-out 200ms;
+  -moz-transition: width 250ms ease-out 200ms;
+  -ms-transition: width 250ms ease-out 200ms;
+  -o-transition: width 250ms ease-out 200ms;
+  transition: width 250ms ease-out 200ms;
 }
 
 #friends {
@@ -2012,6 +2046,9 @@ footer a {
   display: inline-block;
   letter-spacing: normal;
   padding: 15px 20px 15px 25px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
   box-sizing: border-box;
   width: 25%;
   border-bottom: 3px dashed #eeeeee;

@@ -199,7 +199,7 @@ footer{
 $friends_padding : 52px;
 
 #friends_header{
-	box-sizing: border-box;
+	@include box-sizing(border-box);
 	height:$friends_padding;
 	border-bottom:3px dashed $grayLighter;
 	position: absolute;top:0;
@@ -226,7 +226,7 @@ $friends_padding : 52px;
 	top:0px;
 	text-align: center;
 	//background: $grayLighter;
-	font-size: 20px;
+	font-size: 22px;
 	margin-top:10px;
 	margin-left:10px;
 	border-radius:5px;
@@ -243,7 +243,7 @@ $friends_padding : 52px;
 }
 
 #friends_footer{
-	box-sizing: border-box;
+	@include box-sizing(border-box);
 	height:$friends_padding;
 	border-top:3px dashed $grayLighter;
 	position: absolute;bottom:0;
@@ -283,6 +283,33 @@ $friends_padding : 52px;
 	top:$friends_padding;
 	bottom:$friends_padding;
 	left: 0;right:0;
+
+	.progress{
+		width: 200px;
+		margin-left: -100px;
+		position: absolute;
+		top: 20%;
+		left: 50%;
+		overflow: visible;
+		.preload_text{
+			letter-spacing: normal;
+			font-size: 15px;
+			text-align: center;
+			padding-top: 10px;
+			font-family: $bigFontFamilyRegular;
+		}
+		.bar{
+			position: relative;
+			border-radius: 3px;
+			height: 94%;
+			width: 20%;
+			margin-left: 2px;
+			margin-top: 1px;
+			@include transition(width 250ms ease-out 200ms);
+
+		}
+
+	}
 }
 #friends{
     margin: 0;
@@ -321,7 +348,7 @@ $friends_padding : 52px;
 		display:inline-block;
 		letter-spacing:normal;
 		padding:15px 20px 15px 25px;
-		box-sizing: border-box;
+		@include box-sizing(border-box);
 		width:25%;
 		border-bottom:3px dashed $grayLighter;
 		border-top:none;
