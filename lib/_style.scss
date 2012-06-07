@@ -12,6 +12,7 @@ body{
   min-height: 700px;
   position: relative;
   min-width:900px;
+  @include transition(background 300ms ease-out);
 }
 body.all{
 	background-image:url(../img/bg/all.png);
@@ -150,7 +151,8 @@ header{
 	height: 100%;
 	cursor: pointer;
 	color: $white;
-	font: 25px / 55px $bigFontFamily;
+	font: 25px / 55px $bigFontFamilyRegular;
+	text-rendering: optimizeLegibility;
     display: inline-block;
 }
 /* ==========================================================================
@@ -370,6 +372,9 @@ $prof_width : 120px;
 		@include transition(opacity 200ms linear);
 		.thumb &{
 			opacity: 1;
+		}
+		&:before{
+			top:0;
 		}
 	}
 }

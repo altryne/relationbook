@@ -32,6 +32,13 @@ function guidGenerator() {
 Array.prototype.shuffle = function (){
 	for(var rnd, tmp, i=this.length; i; rnd=parseInt(Math.random()*i), tmp=this[--i], this[i]=this[rnd], this[rnd]=tmp);
 };
+fns = {};
+fns.setObject = function(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+fns.getObject = function(key) {
+    return localStorage.getItem(key) && JSON.parse(localStorage.getItem(key));
+};
 
 function getAge(dateString) {
     var today = new Date();

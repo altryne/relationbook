@@ -1671,6 +1671,11 @@ body {
   min-height: 700px;
   position: relative;
   min-width: 900px;
+  -webkit-transition: background 300ms ease-out;
+  -moz-transition: background 300ms ease-out;
+  -ms-transition: background 300ms ease-out;
+  -o-transition: background 300ms ease-out;
+  transition: background 300ms ease-out;
 }
 
 body.all {
@@ -1828,7 +1833,8 @@ header {
   height: 100%;
   cursor: pointer;
   color: white;
-  font: 25px/55px "BitterBold", Georgia, "Times New Roman", Times, serif;
+  font: 25px/55px "BitterRegular", Georgia, "Times New Roman", Times, serif;
+  text-rendering: optimizeLegibility;
   display: inline-block;
 }
 
@@ -2052,6 +2058,9 @@ footer a {
 }
 .thumb .prof_cont i {
   opacity: 1;
+}
+.prof_cont i:before {
+  top: 0;
 }
 
 .prof_pic {
@@ -2287,4 +2296,6 @@ body.connected #welcome {
   display: inline-block;
   vertical-align: middle;
   line-height: 25px;
+  position: relative;
+  top: -3px;
 }

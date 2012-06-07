@@ -3,10 +3,12 @@
 */
 var game_of_profiles  = gop = {
     debug : false,
+    conf : {
+      view : 'list',
+      filters : {}
+    },
     storage : {},
     templates : {},
-    filters : {},
-    view : "list",
     timeout : 0,
     rel_to_preposition : {
         "single" : "",
@@ -23,7 +25,8 @@ var game_of_profiles  = gop = {
     init : function(){
         gop.compileTemplates();
         gop.bindEvents();
-
+        //get saved configuration from localStorage
+        gop.data.loadConf();
         //render statuses filters
         gop.data.statuses = _.keys(gop.rel_to_preposition);
         gop.ui.renderStatusFilters();
@@ -71,7 +74,7 @@ var game_of_profiles  = gop = {
         $.subscribe('fb/status',gop.ui.setState);
         $.subscribe('fb/status',gop.data.getUserFromFB);
         $.subscribe('fb/connected',gop.connected);
-        $.subscribe('fb/fetched_friends',gop.ui.render);
+        $.subscribe('fb/fetched_friends',gop.data.checkFilters);
         $.subscribe('fb/fetched_friends',gop.bindDependantEvents);
         $.subscribe('fb/fetched_friends',gop.data.groupByStatus);
         $.subscribe('fb/fetched_friends',gop.ui.addCountToFilters);
@@ -85,22 +88,22 @@ var game_of_profiles  = gop = {
                var elms = $('.sort_tags li').filter(function(){
                    return $(this).find('input').prop('checked');
                });
-               gop.filters = {};
+               gop.conf.filters = {};
                elms.each(function () {
                    var filter_cat = $(this).data('category');
-                   if(typeof gop.filters[filter_cat] == 'undefined'){
-                        gop.filters[filter_cat] = [];
+                   if(typeof gop.conf.filters[filter_cat] == 'undefined'){
+                        gop.conf.filters[filter_cat] = [];
                    }
-                   gop.filters[filter_cat].push($(this).data('status'));
+                   gop.conf.filters[filter_cat].push($(this).data('status'));
                });
-               gop.data.filterCouples();
+               gop.data.checkFilters();
            },100);
         });
         $('#view_cont').on('click',".view",function(){
             gop.ui.changeView($(this).attr('id'));
         });
         $('#friends_body').on('mouseenter',".rel",function(){
-            if(gop.view == 'thumb'){
+            if(gop.conf.view == 'thumb'){
                 clearTimeout(gop.timeout);
                 $friend = $(this);
                 gop.timeout = setTimeout(function(){
@@ -110,7 +113,7 @@ var game_of_profiles  = gop = {
             }
         });
         $('#friends_body').on('mouseleave',function(){
-            if(gop.view == 'thumb'){
+            if(gop.conf.view == 'thumb'){
                 clearTimeout(gop.timeout);
             }
         });
@@ -126,6 +129,7 @@ var game_of_profiles  = gop = {
                    var friends_arr = _.filter(gop.data.friends,function(friend){
                        return (_.indexOf(items,friend.name) > -1);
                    });
+                   gop.data.clearFilters();
                    gop.ui.render(null,friends_arr);
                    $('#search_cont').addClass('active');
                }else{
@@ -228,11 +232,26 @@ gop.data = {
     filterCouples : function(){
         gop.data.friends_by_status =  _.filter(gop.data.friends,function(friend) {return gop.data.friendMatchesFilters(friend)});
         gop.ui.render(null,gop.data.friends_by_status);
+        gop.data.saveConf();
         gop.ui.renderBG();
+    },
+    checkFilters : function(){
+        if(!gop.conf.filters.sex && !gop.conf.filters.rel_code){
+            //no filters are selected , render default friends list
+            gop.ui.render();
+        }else{
+            //filters found!  update the view and filter friends and show filtered list
+            gop.ui.selectFilters();
+            gop.data.filterCouples();
+        }
+    },
+    clearFilters : function(){
+        gop.conf.filters = {};
+        gop.ui.deselectFilters();
     },
     friendMatchesFilters : function(friend){
         var score = 0;
-        $.each(gop.filters,function(filter_category,filters_arr){
+        $.each(gop.conf.filters,function(filter_category,filters_arr){
             var filters_cat = filter_category;
 
             if(typeof friend[filters_cat] != "undefined"){
@@ -243,7 +262,18 @@ gop.data = {
                 })
             }
         });
-        return (score == _.keys(gop.filters).length);
+        return (score == _.keys(gop.conf.filters).length);
+    },
+    loadConf:function () {
+        if(!fns.getObject('conf')){
+            gop.data.saveConf();
+        }else{
+            gop.conf = fns.getObject('conf');
+            gop.ui.changeView(gop.conf.view);
+        }
+    },
+    saveConf : function(){
+        fns.setObject('conf',gop.conf);
     }
 }
 
@@ -253,6 +283,18 @@ gop.ui = {
         var tmpl_data = {"statuses":gop.data.statuses};
         var html = _.template(tmpl, tmpl_data);
         $('#sort').append(html);
+    },
+    selectFilters : function(){
+        //consolidate filters to array, and mark as selected
+        var filters = _.reduceRight(gop.conf.filters,function(a,b){return a.concat(b)});
+        var $papa = $('.sort_tags');
+        $.each(filters,function(item,name){
+            $papa.find('[data-status="'+name+'"]').find('input').prop('checked','checked');
+        });
+    },
+    deselectFilters : function(){
+        var $papa = $('.sort_tags');
+        $papa.find('input').prop('checked',false);
     },
     addCountToFilters: function(){
         $('.sort_tags li').each(function(){
@@ -271,11 +313,11 @@ gop.ui = {
     },
     renderCountString : function(length){
         var sex_filters = '',rel_code ='';
-        if(gop.filters.sex && gop.filters.sex.length == 1){
-            sex_filters = gop.filters.sex.join(', ');
+        if(gop.conf.filters.sex && gop.conf.filters.sex.length == 1){
+            sex_filters = gop.conf.filters.sex.join(', ');
         }
-        if(gop.filters.rel_code){
-            rel_code = gop.filters.rel_code.join(', ');
+        if(gop.conf.filters.rel_code){
+            rel_code = gop.conf.filters.rel_code.join(', ');
         }
 
         $('#showing').html('Showing <span class="count">'+ length +'</span> '+ sex_filters +' friends');
@@ -293,13 +335,13 @@ gop.ui = {
         $body = $('body');
         $body[0].className = '';
         $body.addClass($body.data('state'));
-        if(gop.filters && gop.filters.rel_code){
-            if(gop.filters.sex && gop.filters.sex.length == 1){
-                sex = gop.filters.sex[0];
+        if(gop.conf.filters && gop.conf.filters.rel_code){
+            if(gop.conf.filters.sex && gop.conf.filters.sex.length == 1){
+                sex = gop.conf.filters.sex[0];
             }else{
                 sex = $('.userdata').data('sex');
             }
-            rel_code = (gop.filters.rel_code.length == 1) ? gop.filters.rel_code[0] : 'all';
+            rel_code = (gop.conf.filters.rel_code.length == 1) ? gop.conf.filters.rel_code[0] : 'all';
         }else{
             sex = $('.userdata').data('sex');
             rel_code = $('.userdata').data('rel_code');
@@ -316,8 +358,9 @@ gop.ui = {
     changeView : function(newView){
         $('.view').removeClass('selected');
         $('#' + newView).addClass('selected');
-        gop.view = newView;
-        $('#friends_cont')[0].className  = newView ;
+        gop.conf.view = newView;
+        $('#friends_cont')[0].className  = newView;
+        gop.data.saveConf();
     },
     clearSearch : function(){
         gop.ui.render(null, gop.data.friends);
