@@ -143,7 +143,11 @@ header{
   	height: 55px;
 	@include border-radius(40px);
 	@include box-shadow(0 1px 2px rgba(0,0,0,.9));
-	@include gradient-horizontal($blue,$blueDarker);
+	@include gradient-vertical($blue,$blueDarker);
+
+	&:hover{
+		@include gradient-vertical(darken($blue,5%),darken($blueDarker,5%));
+	}
 }
 
 .login{
@@ -279,6 +283,7 @@ $friends_padding : 52px;
 #friends_body{
 	overflow: scroll;
 	overflow-x: hidden;
+	-webkit-overflow-scrolling: touch;
 	position: absolute;
 	top:$friends_padding;
 	bottom:$friends_padding;
