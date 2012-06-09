@@ -1,18 +1,42 @@
 @import "icons/*.png";
 
-.status{
-  &.engaged::before    { @include icons-sprite(engaged);    }
-  .female &.single::before { @include icons-sprite(female_single);   }
-  .male &.single::before { @include icons-sprite(male_single);   }
-  &.married::before   { @include icons-sprite(married);   }
-  .female &.divorced::before { @include icons-sprite(female_divorced); }
-  .male &.divorced::before { @include icons-sprite(male_divorced); }
-  &.in_a_relationship::before { @include icons-sprite(in_a_relationship); }
-  &.in_an_open_relationship::before { @include icons-sprite(in_an_open_relationship); }
-  &.it-s_complicated::before { @include icons-sprite(its_complicated); }
-  &.widowed::before { @include icons-sprite(widowed); }
-  &.separated::before { @include icons-sprite(separated); }
-  &.isnot::before,&.not_listed::before { @include icons-sprite(undefined);}
+.status {
+	&.engaged::before {
+		@include icons-sprite(engaged);
+	}
+	&.single::before {
+		@include icons-sprite(male_single);
+	}
+	.female &.single::before {
+		@include icons-sprite(female_single);
+	}
+	&.married::before {
+		@include icons-sprite(married);
+	}
+	&.divorced::before {
+		@include icons-sprite(female_divorced);
+	}
+	.male &.divorced::before {
+		@include icons-sprite(male_divorced);
+	}
+	&.in_a_relationship::before {
+		@include icons-sprite(in_a_relationship);
+	}
+	&.in_an_open_relationship::before {
+		@include icons-sprite(in_an_open_relationship);
+	}
+	&.it-s_complicated::before {
+		@include icons-sprite(its_complicated);
+	}
+	&.widowed::before {
+		@include icons-sprite(widowed);
+	}
+	&.separated::before {
+		@include icons-sprite(separated);
+	}
+	&.isnot::before, &.not_listed::before {
+		@include icons-sprite(undefined);
+	}
 
 }
 .status::before{

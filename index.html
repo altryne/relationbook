@@ -11,6 +11,7 @@
 	<meta name="viewport" content="width=device-width">
 
 	<link rel="stylesheet" href="css/bootstrap.css">
+
 	<!--<link rel="stylesheet" href="css/responsive.css">-->
 
 	<!--<link rel="stylesheet" href="css/states.css">-->
@@ -54,6 +55,23 @@
 		</div>
 	</div>
 	<div id="connected" class="row">
+		<div class="modal hide" id="please_buy" data-backdrop="static">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal">×</button>
+		    <h3>Share the love...</h3>
+		  </div>
+		  <div class="modal-body">
+			  <h3>Please share RelationBook.me with your facebook friends</h3>
+			  <p class="modal-p">
+				  You can filter by sex and relationship status.<br>
+				  We only ask you to share relationbook with your friends, after that you will be able to filter as much as you like.
+			  </p>
+		  </div>
+		  <div class="modal-footer">
+			  <a id="postToFeed" href="#" class="btn btn-primary">Post To Facebook</a>
+		      <a href="#" class="btn " data-dismiss="modal">Remind me later</a>
+		  </div>
+		</div>
 		<aside class="span3">
 		<div id="search">
 			<h5>Search a friend:</h5>
@@ -118,6 +136,7 @@
 <script src="//connect.facebook.net/en_US/all.js"></script>
 <script src="js/libs/jquery-1.7.1.min.js"></script>
 <script src="js/libs/underscore-min.js"></script>
+<script src="js/libs/parse-1.0.2.min.js"></script>
 
 
 <!--<script src="js/plugins-ck.js"></script>-->

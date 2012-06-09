@@ -17,7 +17,7 @@ body{
 body.all{
 	background-image:url(../img/bg/all.png);
 }
-body.male.single{
+body.single{
 	background-image:url(../img/bg/male_single.png);
 }
 body.female.single{
@@ -297,6 +297,7 @@ $friends_padding : 52px;
 }
 #friends{
     margin: 0;
+	position: relative;
 
 }
 .rel{
@@ -347,6 +348,9 @@ $friends_padding : 52px;
 	//.rel:nth-child(3n-1){
 	//	background: #f7f8f9;
 	//}
+}
+.list .popover{
+	display: none !important;
 }
 #friends_body .popover-title{
 	display: none;
@@ -400,7 +404,7 @@ $prof_width : 120px;
 		padding: 3px 0 0 3px;
 		border-top-left-radius: 5px;
 		opacity: 0;
-		@include transition(opacity 200ms linear);
+		//@include transition(opacity 200ms linear);
 		.thumb &{
 			opacity: 1;
 		}
@@ -555,4 +559,12 @@ body.connected #welcome{
 
 .chromeframe{
 
+}
+
+.modal-backdrop{
+	background: #000 url(../img/bg/all.png) 50% top no-repeat;
+	@include transition(opacity 300ms linear);
+}
+.modal-p{
+	font-size: 14px;
 }

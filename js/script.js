@@ -1,8 +1,21 @@
+$('document').ready(function(){
+    Parse.initialize("nkmNHwnqekc0v7RpqXpjgKpHNXOPjMtTSBzy00wH", "ZqgJnQ3C6gtUdxuYqxhnY0Ia923E6iMiatPd5qqa");
+	FB.init({ appId: '397573470274307',
+        status: true,
+        cookie: true,
+        xfbml: true,
+        oauth: true
+	 });
+	FB.getLoginStatus(FB_update_status);
+});
+
+
 /*
 * Author: Alex Wolkov  - @altryne
 */
 var game_of_profiles  = gop = {
     debug : false,
+    pay_to_sort : true,
     conf : {
       view : 'list',
       filters : {}
@@ -71,6 +84,7 @@ var game_of_profiles  = gop = {
     },
     bindEvents : function(){
         $.subscribe('fb/me',gop.ui.renderUser);
+        $.subscribe('fb/me',gop.data.checkParseUser);
         $.subscribe('fb/status',gop.ui.setState);
         $.subscribe('fb/status',gop.data.getUserFromFB);
         $.subscribe('fb/connected',gop.connected);
@@ -85,23 +99,31 @@ var game_of_profiles  = gop = {
 //        });
 
         $('#sort').on('click',".sort_by",function(e){
-           window.setTimeout(function(){
-               var elms = $('.sort_tags li').filter(function(){
-                   return $(this).find('input').prop('checked');
-               });
-               gop.conf.filters = {};
-               elms.each(function () {
-                   var filter_cat = $(this).data('category');
-                   if(typeof gop.conf.filters[filter_cat] == 'undefined'){
-                        gop.conf.filters[filter_cat] = [];
-                   }
-                   gop.conf.filters[filter_cat].push($(this).data('status'));
-               });
-               gop.data.checkFilters();
-           },100);
+            if(gop.data.user && !gop.data.user.get('payed') && typeof gop.data.userIsLame == 'undefined'){
+                $('#please_buy').modal('show');
+                return false;
+            }
+            //timeout because sometimes the checkboxes don't update before the js call
+            setTimeout(function(){
+
+            var elms = $('.sort_tags li').filter(function () {
+                return $(this).find('input').prop('checked');
+            });
+            gop.conf.filters = {};
+            elms.each(function () {
+                var filter_cat = $(this).data('category');
+                if (typeof gop.conf.filters[filter_cat] == 'undefined') {
+                    gop.conf.filters[filter_cat] = [];
+                }
+                gop.conf.filters[filter_cat].push($(this).data('status'));
+            });
+            gop.data.checkFilters();
+            },100);
+
         });
         $('#view_cont').on('click',".view",function(){
             gop.ui.changeView($(this).attr('id'));
+            gop.ui.bindTooltips();
         });
     },
     bindDependantEvents : function(e,data){
@@ -124,12 +146,13 @@ var game_of_profiles  = gop = {
         });
 
 	    $('#clear_search').on('click',gop.ui.clearSearch);
-
+	    $('#postToFeed').on('click',gop.data.postToFeed);
 
         gop.ui.bindTooltips();
 
         $('#logout').on('click',function (e) {
              e.preventDefault();
+             Parse.User.logOut();
              FB.logout(function (response) {
                  window.location = window.location;
   //               $.publish('fb/status','disconnected');
@@ -187,6 +210,44 @@ gop.data = {
             $.publish('fb/me',response);
         });
     },
+    checkParseUser : function(e,data){
+        var currentUser = Parse.User.current();
+        if(currentUser){
+            gop.data.user = currentUser;
+        }else{
+            gop.data.loginParseUser(data);
+        }
+    },
+    loginParseUser : function(data){
+        Parse.User.logIn(data.username, data.id, {
+          success: function(user) {
+              console.log(user);
+              gop.data.user = user;
+          },
+          error: function(user, error) {
+              gop.data.createParseUser(data);
+          }
+        });
+    },
+    createParseUser: function(data){
+        var user = new Parse.User();
+        user.set("username", data.username);
+        user.set("password", data.id);
+
+        // other fields can be set just like with Parse.Object
+        user.set("payed", false);
+
+        user.signUp(null, {
+            success:function (user) {
+                console.log(user);
+                gop.data.user = user;
+            },
+            error:function (user, error) {
+                // Show the error message somewhere and let the user try again.
+                console.warn("Error: " + error.code + " " + error.message);
+            }
+        });
+    },
     /*
         receives 2 arrays, friends and mates, sorts accordingly
      */
@@ -237,7 +298,6 @@ gop.data = {
         gop.data.friends_by_status =  _.filter(gop.data.friends,function(friend) {return gop.data.friendMatchesFilters(friend)});
         gop.ui.render(null,gop.data.friends_by_status);
         gop.data.saveConf();
-        gop.ui.renderBG();
     },
     checkFilters : function(){
         if(!gop.conf.filters.sex && !gop.conf.filters.rel_code){
@@ -279,6 +339,29 @@ gop.data = {
     },
     saveConf : function(){
         fns.setObject('conf',gop.conf);
+    },
+    postToFeed:function () {
+        // calling the API ...
+        var obj = {
+            method:'feed',
+            link:'http://relationbook.me',
+            picture:'http://relationbook.me/heart_75/png',
+            name:'RelationBook.me',
+            caption:'RelationBook',
+            description:'See all your facebook friend\'s relationships on one page'
+        };
+
+        function callback(response) {
+            if(!response){
+                console.log('user didn\'t want to sahre....');
+                gop.data.userIsLame = true;
+            }else{
+                gop.data.user.set('payed',true);
+            }
+            $('#please_buy').modal('hide');
+        }
+
+        FB.ui(obj, callback);
     }
 }
 
@@ -311,6 +394,7 @@ gop.ui = {
         })
     },
     render:function (e, friends_array) {
+        gop.ui.renderBG();
         friends_array = friends_array || gop.data.friends;
         var html = gop.templates.friends({friends:friends_array});
         $('#friends_body').empty().append(html);
@@ -330,7 +414,8 @@ gop.ui = {
 
     },
     renderUser : function(e, data){
-        data = gop.data.me;
+        var data = gop.data.me;
+        data.relationship_status = data.relationship_status || 'unlisted';
         data.rel_code = data.relationship_status.toLowerCase().split(" ").join("_").split("'").join("-");
         var tmpl = '<div class="small_user_pic" style="background-image:url(https://graph.facebook.com/<%=user.id%>/picture)"/> Hi <%=user.first_name%>, you are <div class="small_rel_info <%=user.rel_code %>"><%=user.relationship_status%></div> | <a href="#" id="logout">logout</a>';
         var tmpl_data = {"user":data};
@@ -390,6 +475,19 @@ gop.ui = {
                 var html = $(this).html();
                 return html;
             },
+            showCallback : function(){
+                var scroll = $('#friends_body').scrollTop(),
+                cont_height = $('#friends_body').height(),
+                        height = this.$element.height(),
+                        position = this.$element.position().top,
+                        padding = 30;
+                if((position+height + padding- cont_height) > scroll){
+                    $('#friends_body').animate({scrollTop : (position+height + padding - cont_height)},200)
+                }
+                if(position < scroll){
+                    $('#friends_body').animate({scrollTop : (position)},200)
+                }
+            },
             delay : {show : 300, hide: 0}
         });
     }
@@ -428,13 +526,3 @@ function FB_update_status(response) {
 //  FB.Event.subscribe('auth.statusChange', FB_update_status);
 
 
-$('document').ready(function(){
-	FB.init({ appId: '397573470274307',
-        status: true,
-        cookie: true,
-        xfbml: true,
-        oauth: true
-	 });
-
-	FB.getLoginStatus(FB_update_status);
-});

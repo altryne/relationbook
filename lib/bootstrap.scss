@@ -30,12 +30,12 @@
 //@import "sprites";
 @import "dropdowns";
 @import "wells";
-//@import "component-animations";
-//@import "close";
+@import "component-animations";
+@import "close";
 
 // Components: Buttons & Alerts
 @import "buttons";
-//@import "button-groups";
+@import "button-groups";
 @import "alerts";
 
 // Components: Nav
@@ -46,7 +46,7 @@
 //@import "pager";
 
 // Components: Popovers
-//@import "modals";
+@import "modals";
 @import "tooltip";
 @import "popovers";
 
