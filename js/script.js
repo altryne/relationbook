@@ -20,7 +20,7 @@ var game_of_profiles  = gop = {
         "widowed" : "",
         "separated" : "",
         "divorced" : "",
-        "undefined" : ""
+        "not_listed" : ""
     },
     init : function(){
         gop.compileTemplates();
@@ -35,7 +35,7 @@ var game_of_profiles  = gop = {
         gop.templates.friends = _.template('<ul id="friends">' +
                 '<% _.each(friends, function(friend) { %>' +
                     '<% if(typeof friend.mate == "object"){ %>' +
-                    '<li class="rel <%=friend.sex%> hasmate" data-sex="<%=friend.sex%>">' +
+                    '<li id="<%= friend.uid %>" class="rel <%=friend.sex%> hasmate" data-sex="<%=friend.sex%>">' +
                         '<div class="prof friend_prof">' +
                             '<div class="prof_cont"><a target="_blank" href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a><i class="status <%= friend.rel_code%>"></i></div>' +
                         '</div>' +
@@ -51,16 +51,16 @@ var game_of_profiles  = gop = {
                         '</div>' +
                     '</li> ' +
                     '<% }else{ %>' +
-                    '<li class="rel <%=friend.sex%>" data-sex="<%=friend.sex%>">' +
+                    '<li id="<%= friend.uid %>" class="rel <%=friend.sex%>" data-sex="<%=friend.sex%>">' +
                         '<div class="prof friend_prof">' +
                             '<div class="prof_cont"><a target="_blank" href="http://facebook.com/<%=friend.uid %>" class="prof_pic" style="background-image:url(<%= friend.pic %>)"></a><i class="status <%= friend.rel_code %>"></i></div>' +
                         '</div>' +
                         '<div class="rel_info nomate_info">' +
                         '<div class="friend_name"><a target="_blank" href="http://facebook.com/<%=friend.uid %>"><%=friend.name %></a></div>' +
-                        '<% if(friend.relationship_status != "undefined"){ %>' +
+                        '<% if(friend.rel_code != "not_listed"){ %>' +
                             '<div class="status <%=friend.rel_code%>"><%= friend.relationship_status.toLowerCase() %>&nbsp;</div>' +
                         '<% } %>' +
-                        '<% if(friend.relationship_status == "undefined"){ %>' +
+                        '<% if(friend.rel_code == "not_listed"){ %>' +
                             '<div class="is isnot status">is not sharing relationship info</div>' +
                         '<% } %>' +
                     '</li> ' +
@@ -74,6 +74,7 @@ var game_of_profiles  = gop = {
         $.subscribe('fb/status',gop.ui.setState);
         $.subscribe('fb/status',gop.data.getUserFromFB);
         $.subscribe('fb/connected',gop.connected);
+
         $.subscribe('fb/fetched_friends',gop.data.checkFilters);
         $.subscribe('fb/fetched_friends',gop.bindDependantEvents);
         $.subscribe('fb/fetched_friends',gop.data.groupByStatus);
@@ -102,24 +103,6 @@ var game_of_profiles  = gop = {
         $('#view_cont').on('click',".view",function(){
             gop.ui.changeView($(this).attr('id'));
         });
-        $('#friends_body').on('mouseenter',".rel",function(){
-            if(gop.conf.view == 'thumb'){
-                clearTimeout(gop.timeout);
-                $friend = $(this);
-                gop.timeout = setTimeout(function(){
-                    $('#friends_footer').html($friend.find('.rel_info').clone());
-                    $('#friends_footer')[0].className = $friend.data('sex');
-                },250);
-            }
-        });
-        $('#friends_body').on('mouseleave',function(){
-            if(gop.conf.view == 'thumb'){
-                clearTimeout(gop.timeout);
-            }
-        });
-        $('#friends_cont').on('mouseleave',function(){
-            $('#friends_footer').html();
-        });
     },
     bindDependantEvents : function(e,data){
         $('#search_input').typeahead({
@@ -137,12 +120,17 @@ var game_of_profiles  = gop = {
                    $('#search_cont').removeClass('active');
                }
            },
-           clear : gop.ui.clearSearch()
+           clear : gop.ui.clearSearch
         });
+
 	    $('#clear_search').on('click',gop.ui.clearSearch);
-        $('#logout').on('click',function () {
+
+
+        gop.ui.bindTooltips();
+
+        $('#logout').on('click',function (e) {
+             e.preventDefault();
              FB.logout(function (response) {
-                 console.log(response);
                  window.location = window.location;
   //               $.publish('fb/status','disconnected');
              });
@@ -156,6 +144,7 @@ var game_of_profiles  = gop = {
 gop.data = {
     friends : {},
     mates : {},
+    state : "disconnected",
     count : {
         sex : {
             male : 0,
@@ -172,7 +161,7 @@ gop.data = {
         }
     },
     getFriendsFromFB : function(){
-	    gop.ui.updateProgress(20);
+	    gop.ui.updateProgress(0);
         FB.api(
             {
                 method:'fql.multiquery',
@@ -182,13 +171,19 @@ gop.data = {
                 }
             },
             function (data) {
-	            gop.ui.updateProgress(60);
-                gop.data.handleFriends(data);
+	            gop.ui.updateProgress(100);
+                setTimeout(function(){
+                    gop.data.handleFriends(data);
+                },500);
+
             }
         );
     },
     getUserFromFB : function(){
+        if(gop.data.me) return;
+        gop.data.me = {};
         FB.api('/me', function (response) {
+            gop.data.me = response;
             $.publish('fb/me',response);
         });
     },
@@ -209,7 +204,7 @@ gop.data = {
             if (friend.relationship_status != null) {
                 rel_status = friend.relationship_status.toLowerCase().split(" ").join("_").split("'").join("-");
             } else {
-                rel_status = "undefined";
+                rel_status = "not_listed";
                 friend.relationship_status = "undefined";
             }
             //count friends by sex
@@ -230,7 +225,7 @@ gop.data = {
         $.publish('fb/fetched_friends');
     },
     preposition : function(rel_status){
-        rel_status = rel_status || 'undefined';
+        rel_status = rel_status || 'not_listed';
         rel_status = rel_status.toLowerCase().split(" ").join("_").split("'").join("-");
         return gop.rel_to_preposition[rel_status];
     },
@@ -245,13 +240,13 @@ gop.data = {
         gop.ui.renderBG();
     },
     checkFilters : function(){
-	    gop.ui.updateProgress(100);
         if(!gop.conf.filters.sex && !gop.conf.filters.rel_code){
             //no filters are selected , render default friends list
             gop.ui.render();
         }else{
-            //filters found!  update the view and filter friends and show filtered list
+            //filters found!  update the view
             gop.ui.selectFilters();
+            //and filter friends and show filtered list
             gop.data.filterCouples();
         }
     },
@@ -320,6 +315,7 @@ gop.ui = {
         var html = gop.templates.friends({friends:friends_array});
         $('#friends_body').empty().append(html);
         gop.ui.renderCountString(friends_array.length);
+        gop.ui.bindTooltips();
     },
     renderCountString : function(length){
         var sex_filters = '',rel_code ='';
@@ -334,17 +330,19 @@ gop.ui = {
 
     },
     renderUser : function(e, data){
+        data = gop.data.me;
         data.rel_code = data.relationship_status.toLowerCase().split(" ").join("_").split("'").join("-");
         var tmpl = '<div class="small_user_pic" style="background-image:url(https://graph.facebook.com/<%=user.id%>/picture)"/> Hi <%=user.first_name%>, you are <div class="small_rel_info <%=user.rel_code %>"><%=user.relationship_status%></div> | <a href="#" id="logout">logout</a>';
         var tmpl_data = {"user":data};
         var html = _.template(tmpl, tmpl_data);
         $('.userdata').append(html).data({'sex':data.sex,'rel_code':data.rel_code});
         gop.ui.renderBG(data.rel_code,data.sex);
+        gop.ui.updateProgress(50);
     },
     renderBG : function(rel_code,sex){
         $body = $('body');
         $body[0].className = '';
-        $body.addClass($body.data('state'));
+        $body.addClass(gop.data.state);
         if(gop.conf.filters && gop.conf.filters.rel_code){
             if(gop.conf.filters.sex && gop.conf.filters.sex.length == 1){
                 sex = gop.conf.filters.sex[0];
@@ -359,10 +357,10 @@ gop.ui = {
         $body.addClass(rel_code).addClass(sex);
     },
     setState:function (e, state ) {
-        state = state || 'disconnected';
-        $('body').removeClass('disconnected connected').addClass(state).attr('data-state',state);
-        if (state == 'connected') {
-            $.publish('fb/connected', state)
+        gop.data.state = state || 'disconnected';
+        $('body').removeClass('disconnected connected').addClass(gop.data.state).attr('data-state',gop.data.state);
+        if (gop.data.state == 'connected') {
+            $.publish('fb/connected', gop.data.state)
         }
     },
     changeView : function(newView){
@@ -378,21 +376,38 @@ gop.ui = {
         $('#search_input').val('');
     },
 	updateProgress  : function(width){
-		$('.bar').width(width);
-	}
+		$('.bar').width(width + '%');
+	},
+    bindTooltips : function(){
+        $('#friends .rel').popover({
+            placement: function(item,b){
+                var left = this.$element.position().left;
+                var pos = ($('#friends').width() / 2  - 15 <= left) ? 'left' : 'right';
+                return 'inside '+ pos;
+            },
+            animation: true,
+            content : function(){
+                var html = $(this).html();
+                return html;
+            },
+            delay : {show : 300, hide: 0}
+        });
+    }
 }
-//window.fbAsyncInit = gop.init;
-
-
-
-
+window.fbAsyncInit = function(){
+    $.publish('fb/status','connected');
+};
 
 function FB_update_status(response) {
       var $button = $('.login');
       if (response.authResponse) {
           gop.init();
+          gop.data.getUserFromFB();
+
+          //for debug
+          $.publish('fb/status','connected');
           $button.on('click',function () {
-               $.publish('fb/status','connected');
+//               $.publish('fb/status','connected');
           });
       } else {
           //user is not connected to your app or logged out

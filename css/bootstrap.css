@@ -786,6 +786,328 @@ cite {
   border-radius: 3px;
 }
 
+.btn {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 4px 10px 4px;
+  margin-bottom: 0;
+  font-size: 13px;
+  line-height: 18px;
+  *line-height: 20px;
+  color: #7e8793;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, white, #e6e6e6);
+  background-image: -ms-linear-gradient(top, white, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(white), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, white, #e6e6e6);
+  background-image: -o-linear-gradient(top, white, #e6e6e6);
+  background-image: linear-gradient(top, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fcfcfc', endColorstr='#e3e3e3', GradientType=0);
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #e6e6e6;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  *margin-left: .3em;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.btn:hover, .btn:active, .btn.active, .btn.disabled, .btn[disabled] {
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+.btn:active, .btn.active {
+  background-color: #cccccc \9;
+}
+.btn:first-child {
+  *margin-left: 0;
+}
+
+.btn:hover {
+  color: #7e8793;
+  text-decoration: none;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+  /* Buttons in IE7 don't get borders, so darken on hover */
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+  -moz-transition: background-position 0.1s linear;
+  -ms-transition: background-position 0.1s linear;
+  -o-transition: background-position 0.1s linear;
+  transition: background-position 0.1s linear;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn.active,
+.btn:active {
+  background-color: #e6e6e6;
+  background-color: #d9d9d9 \9;
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn.disabled,
+.btn[disabled] {
+  cursor: default;
+  background-color: #e6e6e6;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.btn-large {
+  padding: 9px 14px;
+  font-size: 15px;
+  line-height: normal;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+
+.btn-large [class^="icon-"] {
+  margin-top: 1px;
+}
+
+.btn-small {
+  padding: 5px 9px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.btn-small [class^="icon-"] {
+  margin-top: -1px;
+}
+
+.btn-mini {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-warning,
+.btn-warning:hover,
+.btn-danger,
+.btn-danger:hover,
+.btn-success,
+.btn-success:hover,
+.btn-info,
+.btn-info:hover,
+.btn-inverse,
+.btn-inverse:hover {
+  color: white;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary.active,
+.btn-warning.active,
+.btn-danger.active,
+.btn-success.active,
+.btn-info.active,
+.btn-inverse.active {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.btn {
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+
+.btn-primary {
+  background-color: #7e8593;
+  background-image: -moz-linear-gradient(top, #7e8793, #7e8293);
+  background-image: -ms-linear-gradient(top, #7e8793, #7e8293);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#7e8793), to(#7e8293));
+  background-image: -webkit-linear-gradient(top, #7e8793, #7e8293);
+  background-image: -o-linear-gradient(top, #7e8793, #7e8293);
+  background-image: linear-gradient(top, #7e8793, #7e8293);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7b8491', endColorstr='#7b7f91', GradientType=0);
+  border-color: #7e8293 #7e8293 #5a5d6b;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #7e8293;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.disabled, .btn-primary[disabled] {
+  background-color: #7e8293;
+  *background-color: #717587;
+}
+.btn-primary:active, .btn-primary.active {
+  background-color: #656979 \9;
+}
+
+.btn-warning {
+  background-color: #f9a732;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -ms-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(top, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbb24b', endColorstr='#f39106', GradientType=0);
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #f89406;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.btn-warning:hover, .btn-warning:active, .btn-warning.active, .btn-warning.disabled, .btn-warning[disabled] {
+  background-color: #f89406;
+  *background-color: #df8505;
+}
+.btn-warning:active, .btn-warning.active {
+  background-color: #c67605 \9;
+}
+
+.btn-danger {
+  background-color: #da4e49;
+  background-image: -moz-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -ms-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ee5f5b), to(#bd362f));
+  background-image: -webkit-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: -o-linear-gradient(top, #ee5f5b, #bd362f);
+  background-image: linear-gradient(top, #ee5f5b, #bd362f);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ee5a56', endColorstr='#b9352e', GradientType=0);
+  border-color: #bd362f #bd362f #802420;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #bd362f;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.btn-danger:hover, .btn-danger:active, .btn-danger.active, .btn-danger.disabled, .btn-danger[disabled] {
+  background-color: #bd362f;
+  *background-color: #a9302a;
+}
+.btn-danger:active, .btn-danger.active {
+  background-color: #942a25 \9;
+}
+
+.btn-success {
+  background-color: #5bb65b;
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -ms-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(top, #62c462, #51a351);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5ec35e', endColorstr='#4fa04f', GradientType=0);
+  border-color: #51a351 #51a351 #387038;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #51a351;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.btn-success:hover, .btn-success:active, .btn-success.active, .btn-success.disabled, .btn-success[disabled] {
+  background-color: #51a351;
+  *background-color: #499249;
+}
+.btn-success:active, .btn-success.active {
+  background-color: #408140 \9;
+}
+
+.btn-info {
+  background-color: #49afcd;
+  background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -ms-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+  background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+  background-image: linear-gradient(top, #5bc0de, #2f96b4);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#57bedd', endColorstr='#2e93b0', GradientType=0);
+  border-color: #2f96b4 #2f96b4 #1f6377;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #2f96b4;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.btn-info:hover, .btn-info:active, .btn-info.active, .btn-info.disabled, .btn-info[disabled] {
+  background-color: #2f96b4;
+  *background-color: #2a85a0;
+}
+.btn-info:active, .btn-info.active {
+  background-color: #24748c \9;
+}
+
+.btn-inverse {
+  background-color: #616773;
+  background-image: -moz-linear-gradient(top, #727987, #494e57);
+  background-image: -ms-linear-gradient(top, #727987, #494e57);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#727987), to(#494e57));
+  background-image: -webkit-linear-gradient(top, #727987, #494e57);
+  background-image: -o-linear-gradient(top, #727987, #494e57);
+  background-image: linear-gradient(top, #727987, #494e57);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#707784', endColorstr='#474c54', GradientType=0);
+  border-color: #494e57 #494e57 #26292d;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #494e57;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+.btn-inverse:hover, .btn-inverse:active, .btn-inverse.active, .btn-inverse.disabled, .btn-inverse[disabled] {
+  background-color: #494e57;
+  *background-color: #3d4249;
+}
+.btn-inverse:active, .btn-inverse.active {
+  background-color: #32353b \9;
+}
+
+button.btn,
+input[type="submit"].btn {
+  *padding-top: 2px;
+  *padding-bottom: 2px;
+}
+button.btn::-moz-focus-inner,
+input[type="submit"].btn::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+button.btn.btn-large,
+input[type="submit"].btn.btn-large {
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+}
+button.btn.btn-small,
+input[type="submit"].btn.btn-small {
+  *padding-top: 3px;
+  *padding-bottom: 3px;
+}
+button.btn.btn-mini,
+input[type="submit"].btn.btn-mini {
+  *padding-top: 1px;
+  *padding-bottom: 1px;
+}
+
 .alert {
   padding: 8px 35px 8px 14px;
   margin-bottom: 18px;
@@ -840,6 +1162,180 @@ cite {
 
 .alert-block p + p {
   margin-top: 5px;
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 1020;
+  display: block;
+  visibility: visible;
+  padding: 5px;
+  font-size: 11px;
+  opacity: 0;
+  filter: alpha(opacity=0);
+}
+.tooltip.in {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+}
+.tooltip.top {
+  margin-top: -2px;
+}
+.tooltip.right {
+  margin-left: 2px;
+}
+.tooltip.bottom {
+  margin-top: 2px;
+}
+.tooltip.left {
+  margin-left: -2px;
+}
+.tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+}
+.tooltip.left .tooltip-arrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid black;
+}
+.tooltip.bottom .tooltip-arrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+}
+.tooltip.right .tooltip-arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid black;
+}
+
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  background-color: black;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.popover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1010;
+  display: none;
+  padding: 5px;
+}
+.popover.top {
+  margin-top: -5px;
+}
+.popover.right {
+  margin-left: -10px;
+}
+.popover.bottom {
+  margin-top: -10px;
+}
+.popover.left {
+  margin-left: 10px;
+}
+.popover.top .arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid black;
+}
+.popover.right .arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid black;
+}
+.popover.bottom .arrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid black;
+}
+.popover.left .arrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid black;
+}
+.popover .arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.popover-inner {
+  padding: 3px;
+  width: 320px;
+  overflow: hidden;
+  background: black;
+  background: rgba(0, 0, 0, 0.8);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+}
+
+.popover-title {
+  padding: 9px 15px;
+  line-height: 1;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #eee;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
+}
+
+.popover-content {
+  padding: 14px;
+  min-height: 86px;
+  background-color: white;
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.popover-content p, .popover-content ul, .popover-content ol {
+  margin-bottom: 0;
 }
 
 @-webkit-keyframes progress-bar-stripes {
@@ -1713,6 +2209,60 @@ li[class*=" icon-"].icon-large:before {
   content: "\f094";
 }
 
+.icons-sprite, .status.engaged::before, .female .status.single::before, .male .status.single::before, .status.married::before, .female .status.divorced::before, .male .status.divorced::before, .status.in_a_relationship::before, .status.in_an_open_relationship::before, .status.it-s_complicated::before, .status.widowed::before, .status.separated::before, .status.isnot::before, .status.not_listed::before {
+  background: url('../img/icons-sb3867b1e51.png') no-repeat;
+}
+
+.status.engaged::before {
+  background-position: 0 -25px;
+}
+.female .status.single::before {
+  background-position: 0 -175px;
+}
+.male .status.single::before {
+  background-position: 0 -288px;
+}
+.status.married::before {
+  background-position: 0 -50px;
+}
+.female .status.divorced::before {
+  background-position: 0 -238px;
+}
+.male .status.divorced::before {
+  background-position: 0 -263px;
+}
+.status.in_a_relationship::before {
+  background-position: 0 -213px;
+}
+.status.in_an_open_relationship::before {
+  background-position: 0 -75px;
+}
+.status.it-s_complicated::before {
+  background-position: 0 0;
+}
+.status.widowed::before {
+  background-position: 0 -100px;
+}
+.status.separated::before {
+  background-position: 0 -150px;
+}
+.status.isnot::before, .status.not_listed::before {
+  background-position: 0 -125px;
+}
+
+.status::before {
+  background-repeat: no-repeat;
+  padding-left: 5px;
+  content: "";
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 25px;
+  position: relative;
+  top: -3px;
+}
+
 /* ===== Primary Styles ========================================================
    Author:
    ========================================================================== */
@@ -1727,11 +2277,11 @@ body {
   min-height: 700px;
   position: relative;
   min-width: 900px;
-  -webkit-transition: background 300ms ease-out;
-  -moz-transition: background 300ms ease-out;
-  -ms-transition: background 300ms ease-out;
-  -o-transition: background 300ms ease-out;
-  transition: background 300ms ease-out;
+  -webkit-transition: background 500ms ease-out;
+  -moz-transition: background 500ms ease-out;
+  -ms-transition: background 500ms ease-out;
+  -o-transition: background 500ms ease-out;
+  transition: background 500ms ease-out;
 }
 
 body.all {
@@ -2012,26 +2562,6 @@ footer a {
   line-height: 45px;
   padding-left: 25px;
 }
-#friends_footer .rel_info {
-  line-height: inherit;
-  padding: 0;
-  width: 100%;
-  text-align: left;
-}
-#friends_footer .friend_name {
-  vertical-align: baseline;
-  display: inline-block;
-  padding-right: 5px;
-}
-#friends_footer .status {
-  font-family: "BitterBold", Georgia, "Times New Roman", Times, serif;
-  padding-right: 5px;
-  vertical-align: baseline;
-  display: inline-block;
-}
-.list #friends_footer .rel_info {
-  display: none;
-}
 
 #friends_body {
   overflow: scroll;
@@ -2062,14 +2592,14 @@ footer a {
   position: relative;
   border-radius: 3px;
   height: 94%;
-  width: 20%;
+  width: 0%;
   margin-left: 2px;
   margin-top: 1px;
-  -webkit-transition: width 250ms ease-out 200ms;
-  -moz-transition: width 250ms ease-out 200ms;
-  -ms-transition: width 250ms ease-out 200ms;
-  -o-transition: width 250ms ease-out 200ms;
-  transition: width 250ms ease-out 200ms;
+  -webkit-transition: width 250ms cubic-bezier(0.01, 1.06, 0.33, 0.92);
+  -moz-transition: width 250ms cubic-bezier(0.01, 1.06, 0.33, 0.92);
+  -ms-transition: width 250ms cubic-bezier(0.01, 1.06, 0.33, 0.92);
+  -o-transition: width 250ms cubic-bezier(0.01, 1.06, 0.33, 0.92);
+  transition: width 250ms cubic-bezier(0.01, 1.06, 0.33, 0.92);
 }
 
 #friends {
@@ -2126,6 +2656,25 @@ footer a {
   display: none;
 }
 .thumb #friends_body .rel .mate_prof {
+  display: none;
+}
+
+#friends_body .popover-title {
+  display: none;
+}
+
+#friends_body .popover-content .status {
+  padding-bottom: 6px;
+}
+#friends_body .popover-content .mate_name {
+  display: block !important;
+}
+#friends_body .popover-content .rel_info {
+  display: block !important;
+  width: auto !important;
+  text-align: center;
+}
+#friends_body .popover-content .friend_prof, #friends_body .popover-content .mate_prof {
   display: none;
 }
 
@@ -2209,7 +2758,7 @@ footer a {
   margin-left: 2px;
 }
 
-.in_a_relationship:first-letter {
+.small_rel_info.in_a_relationship:first-letter {
   text-transform: capitalize;
 }
 
@@ -2349,58 +2898,4 @@ body.connected #welcome {
   text-shadow: none;
   color: transparent;
   background-color: transparent;
-}
-
-.icons-sprite, .status.engaged::before, .female .status.single::before, .male .status.single::before, .status.married::before, .female .status.divorced::before, .male .status.divorced::before, .status.in_a_relationship::before, .status.in_an_open_relationship::before, .status.it-s_complicated::before, .status.widowed::before, .status.separated::before, .status.isnot::before, .status.undefined::before {
-  background: url('../img/icons-sb3867b1e51.png') no-repeat;
-}
-
-.status.engaged::before {
-  background-position: 0 -25px;
-}
-.female .status.single::before {
-  background-position: 0 -175px;
-}
-.male .status.single::before {
-  background-position: 0 -288px;
-}
-.status.married::before {
-  background-position: 0 -50px;
-}
-.female .status.divorced::before {
-  background-position: 0 -238px;
-}
-.male .status.divorced::before {
-  background-position: 0 -263px;
-}
-.status.in_a_relationship::before {
-  background-position: 0 -213px;
-}
-.status.in_an_open_relationship::before {
-  background-position: 0 -75px;
-}
-.status.it-s_complicated::before {
-  background-position: 0 0;
-}
-.status.widowed::before {
-  background-position: 0 -100px;
-}
-.status.separated::before {
-  background-position: 0 -150px;
-}
-.status.isnot::before, .status.undefined::before {
-  background-position: 0 -125px;
-}
-
-.status::before {
-  background-repeat: no-repeat;
-  padding-left: 5px;
-  content: "";
-  width: 25px;
-  height: 25px;
-  display: inline-block;
-  vertical-align: middle;
-  line-height: 25px;
-  position: relative;
-  top: -3px;
 }

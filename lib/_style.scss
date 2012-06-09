@@ -12,7 +12,7 @@ body{
   min-height: 700px;
   position: relative;
   min-width:900px;
-  @include transition(background 300ms ease-out);
+  @include transition(background 500ms ease-out);
 }
 body.all{
 	background-image:url(../img/bg/all.png);
@@ -257,27 +257,6 @@ $friends_padding : 52px;
 	line-height: 45px;
 	padding-left: 25px;
 
-	.rel_info{
-		line-height: inherit;
-		padding:0;
-		width:100%;
-		text-align: left;
-	}
-	.friend_name{
-		vertical-align: baseline;
-		display: inline-block;
-		padding-right:5px;
-	}
-	.status{
-		font-family: $bigFontFamily;
-		padding-right:5px;
-
-		vertical-align: baseline;
-		display: inline-block;
-	}
-	.list & .rel_info{
-		display: none;
-	}
 }
 
 #friends_body{
@@ -307,10 +286,10 @@ $friends_padding : 52px;
 			position: relative;
 			border-radius: 3px;
 			height: 94%;
-			width: 20%;
+			width: 0%;
 			margin-left: 2px;
 			margin-top: 1px;
-			@include transition(width 250ms ease-out 200ms);
+			@include transition(width 250ms cubic-bezier(.01,1.06,.33,.92));
 
 		}
 
@@ -369,6 +348,26 @@ $friends_padding : 52px;
 	//	background: #f7f8f9;
 	//}
 }
+#friends_body .popover-title{
+	display: none;
+}
+#friends_body .popover-content{
+	.status{
+		padding-bottom : 6px;
+	}
+	.mate_name{
+		display: block !important;
+	}
+	.rel_info{
+		display: block !important;
+		width:auto !important;
+		text-align: center;
+	}
+	.friend_prof,.mate_prof{
+		display: none;
+	}
+}
+
 
 $prof_width : 120px;
 
@@ -447,7 +446,7 @@ $prof_width : 120px;
 	padding-left:18px;
 	margin-left:2px;
 }
-.in_a_relationship:first-letter{
+.small_rel_info.in_a_relationship:first-letter{
 	text-transform: capitalize;
 }
 
@@ -552,4 +551,8 @@ body.disconnected #connected{
 
 body.connected #welcome{
     display: none;
+}
+
+.chromeframe{
+
 }
