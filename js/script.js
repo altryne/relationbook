@@ -15,6 +15,7 @@ $('document').ready(function () {
 */
 var game_of_profiles  = gop = {
     debug : false,
+	numberOfFreeActions : 4,
     pay_to_sort : true,
     conf : {
       view : 'list',
@@ -93,15 +94,21 @@ var game_of_profiles  = gop = {
         $.subscribe('fb/fetched_friends',gop.bindDependantEvents);
         $.subscribe('fb/fetched_friends',gop.data.groupByStatus);
         $.subscribe('fb/fetched_friends',gop.ui.addCountToFilters);
+        $.subscribe('user/payed',gop.data.userPayed);
 
-//        FB.Event.subscribe('auth.statusChange',function(response) {
-//             $.publish('fb/status',response);
-//        });
+
+        FB.Event.subscribe('edge.create',function(response) {
+	        $.publish('user/payed','like');
+        });
 
         $('#sort').on('click',".sort_by",function(e){
-            if(gop.data.user && !gop.data.user.get('payed') && typeof gop.data.userIsLame == 'undefined'){
+            if(gop.data.user && gop.data.user.get('actions') == 0){
                 $('#please_buy').modal('show');
                 return false;
+            }else if(gop.data.user.get('actions') > 0){
+	            var num = gop.data.user.get('actions');
+                gop.data.user.save({actions: num - 1}, {});
+                console.log(num - 1);
             }
             //timeout because sometimes the checkboxes don't update before the js call
             setTimeout(function(){
@@ -147,6 +154,11 @@ var game_of_profiles  = gop = {
 
 	    $('#clear_search').on('click',gop.ui.clearSearch);
 	    $('#postToFeed').on('click',gop.data.postToFeed);
+        $('#please_buy').on('hidden', function () {
+            if(gop.data.user.get('actions') != -1){
+	            gop.data.user.save({actions: gop.numberOfFreeActions}, {});
+            }
+        })
 
         gop.ui.bindTooltips();
 
@@ -237,7 +249,7 @@ gop.data = {
         user.set("password", data.id);
 
         // other fields can be set just like with Parse.Object
-        user.set("payed", false);
+        user.set("actions", 0);
 
         user.signUp(null, {
             success:function (user) {
@@ -342,7 +354,9 @@ gop.data = {
     saveConf : function(){
         fns.setObject('conf',gop.conf);
     },
-    postToFeed:function () {
+    postToFeed:function (e) {
+        e.preventDefault();
+        $('#please_buy').hide();
         // calling the API ...
         var obj = {
             method:'feed',
@@ -355,16 +369,20 @@ gop.data = {
 
         function callback(response) {
             if(!response){
-                console.log('user didn\'t want to sahre....');
-                gop.data.userIsLame = true;
+                console.log('user didn\'t want to share....ask him again soon');
+                $('#please_buy').show();
             }else{
-                gop.data.user.save({payed: true}, {});
+	            $.publish('user/payed','pos_to_fb');
             }
-            $('#please_buy').modal('hide');
+
         }
 
         FB.ui(obj, callback);
-    }
+    },
+	userPayed : function(e,data){
+//		gop.data.user.save({actions: -1}, {});
+//        $('#please_buy').modal('hide');
+	}
 }
 
 gop.ui = {
