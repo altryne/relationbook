@@ -1,11 +1,11 @@
-$('document').ready(function(){
-    Parse.initialize("nkmNHwnqekc0v7RpqXpjgKpHNXOPjMtTSBzy00wH", "ZqgJnQ3C6gtUdxuYqxhnY0Ia923E6iMiatPd5qqa");
-	FB.init({ appId: '397573470274307',
-        status: true,
-        cookie: true,
-        xfbml: true,
-        oauth: true
-	 });
+$('document').ready(function () {
+	Parse.initialize("nkmNHwnqekc0v7RpqXpjgKpHNXOPjMtTSBzy00wH", "ZqgJnQ3C6gtUdxuYqxhnY0Ia923E6iMiatPd5qqa");
+	FB.init({ appId:'397573470274307',
+		status:     true,
+		cookie:     true,
+		xfbml:      true,
+		oauth:      true
+	});
 	FB.getLoginStatus(FB_update_status);
 });
 
@@ -213,7 +213,10 @@ gop.data = {
     checkParseUser : function(e,data){
         var currentUser = Parse.User.current();
         if(currentUser){
-            gop.data.user = currentUser;
+	        currentUser.fetch({success: function(){
+		        console.log('success fetching');
+		        gop.data.user = currentUser;
+	        }})
         }else{
             gop.data.loginParseUser(data);
         }
@@ -221,7 +224,6 @@ gop.data = {
     loginParseUser : function(data){
         Parse.User.logIn(data.username, data.id, {
           success: function(user) {
-              console.log(user);
               gop.data.user = user;
           },
           error: function(user, error) {
@@ -356,7 +358,7 @@ gop.data = {
                 console.log('user didn\'t want to sahre....');
                 gop.data.userIsLame = true;
             }else{
-                gop.data.user.set('payed',true);
+                gop.data.user.save({payed: true}, {});
             }
             $('#please_buy').modal('hide');
         }
