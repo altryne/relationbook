@@ -98,8 +98,11 @@ var game_of_profiles  = gop = {
 
 
         FB.Event.subscribe('edge.create',function(response) {
-	        $.publish('user/payed','like');
+//	        $.publish('user/payed','like');
         });
+	    FB.Event.subscribe("message.send", function(response) {
+		    $.publish('user/payed',{'share':response});
+	    });
 
         $('#sort').on('click',".sort_by",function(e){
             if(gop.data.user && gop.data.user.get('actions') == 0){
@@ -361,7 +364,7 @@ gop.data = {
         var obj = {
             method:'feed',
             link:'http://relationbook.me',
-            picture:'http://relationbook.me/heart_75/png',
+            picture:'http://relationbook.me/img/heart_75.png',
             name:'RelationBook.me',
             caption:'RelationBook',
             description:'See all your facebook friend\'s relationships on one page'
@@ -380,8 +383,8 @@ gop.data = {
         FB.ui(obj, callback);
     },
 	userPayed : function(e,data){
-//		gop.data.user.save({actions: -1}, {});
-//        $('#please_buy').modal('hide');
+		gop.data.user.save({actions: -1}, {});
+        $('#please_buy').modal('hide');
 	}
 }
 

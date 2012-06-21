@@ -81,13 +81,12 @@ header{
 }
 
 #menu{
-
   	list-style: none;
 	display:block;
   	@include border-radius(25px);
     padding:10px 0;
   	margin: 0;
-	margin-left: 85px;
+	//margin-left: 85px;
   	height: 20px;
     background: #EDEFF2;
 	text-align : center;
@@ -98,7 +97,7 @@ header{
     display: inline-block;
 	letter-spacing:normal;
 	vertical-align: middle;
-    width:25%;
+    width:107px;
 	padding: 0;
 	@include single-text-shadow;
   }
