@@ -16,7 +16,6 @@
 	<meta itemprop=name content="RelationBook">
 	<meta itemprop=description content="See all your facebook friend's relationships on one page">
 	<meta itemprop=image content="http://relationbook.me/img/heart_75.png">
-
 	<meta name="viewport" content="width=device-width">
 
 	<link rel="stylesheet" href="css/bootstrap.css">
@@ -25,7 +24,7 @@
 
 	<!--<link rel="stylesheet" href="css/states.css">-->
 	<link href="img/favicon.png" rel="icon" type="image/x-icon" />
-	<script src="js/libs/modernizr-2.5.3.min.js"></script>
+	<!--<script src="js/libs/modernizr-2.5.3.min.js"></script>-->
 </head>
 <body class="disconnected" data-state="disconnected">
 <!--[if lt IE 7]><div class="chromeframe alert alert-danger"> <div class="alert-heading">Your browser is <em>ancient!</em> </div> <div class="alert-block"> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.<br/><br/><br/> <a class="close btn btn-info" data-dismiss="alert">I don't care, let me use the site already!</a> </div> </div><![endif]-->
@@ -34,16 +33,16 @@
 
 		</div>
 		<div class="span3"><a href="http://relationbook.me" id="logo" class="ir">relationbook.me</a> </div>
-		<div class="span3 offset4">
+		<div class="span4 offset3">
 			<ul id="menu">
-				<li class="item">
-					<div class="fb-like" data-href="http://relationbook.me" data-send="false" layout="button_count" data-width="107" data-show-faces="false" data-font="lucida grande"></div>
+				<li class="item" style="width:87px;">
+					<div class="fb-like" data-href="http://relationbook.me" data-send="false" layout="button_count" data-width="84" data-show-faces="false" data-font="lucida grande"></div>
 				</li>
-				<li class="item">
-				<a href="http://twitter.com/share" data-related=altryne data-url="http://blisscontrol.com" data-via="altryne & @benln" data-text="Easily manage all your social network settings with this one tool: " class=twitter-share-button>Tweet</a>
+				<li class="item" style="width:87px;">
+					<a href="http://twitter.com/share" class="twitter-share-button" data-text="Find out who of your facebook friends are in relationship, single or married" data-url="http://relationbook.me" data-via="altryne" data-related="altryne" data-dnt="true">Tweet</a>
 				</li>
-				<li class="item">
-				<g:plusone size=medium callback=plusone_vote href="http://blisscontrol.com"></g:plusone>
+				<li class="item" style="width:87px;">
+					<div class="g-plusone" data-size="medium"> g+</div>
 				</li>
 				<li class="item"><a href="#">About</a></li>
 			</ul>
@@ -56,18 +55,22 @@
 			<div class="welcome">
 				<h1>Who's in a relationship?</h1>
 
-				<h2>Find out quickly who of your facebook <br>
-					friends are 'single' or 'related'</h2>
+				<h2>Easily find out which of your friends <br>  are in a relationship or single.</h2>
 			</div>
 			<div id="sign_in" class="sign_in span2 offset3">
-				<div class="login"><i class="icon-facebook-sign"></i>  Start Here
+				<div class="login"><i class="icon-facebook-sign"></i>  Get Started
                 </div>
-				<!--<div class="fb-login-button" data-show-faces="false" data-width="180" data-max-rows="1" data-scope="user_relationships,user_relationship_details,friends_relationships">Start Here</div>-->
-
-                <!--<div class="alert alert-error">-->
-                  <!--There seens ti be a problem connecting to facebook, please <a href="." >try again!</a>-->
-                <!--</div>-->
 			</div>
+			<div class="span8">
+				<div id="post_scriptum">
+					We won't abuse your information, <a href="about.html#privacy">we promise!</a> <br>
+					<a data-toggle="modal" href="#myModal2">See a preview</a> of the website before connecting
+				</div>
+			</div>
+
+			<!--<div id="prev">-->
+				<!---->
+			<!--</div>-->
 		</div>
 	</div>
 	<div id="connected" class="row">
@@ -135,7 +138,12 @@
 
 
 </div>
-
+<div class="modal fade hide" id="myModal2">
+	<button type="button" class="close" data-dismiss="modal">×</button>
+			  <div class="modal-body">
+				  <img src="img/screen.png" width="700" alt="">
+			  </div>
+			</div>
 <footer class="container">
 	<span id="copy" class="span10">&copy; Copyright Relationbook.me | Have feedback? <a href="bla">Let us know!</a></span>
 </footer>
@@ -154,11 +162,18 @@
 <script src="js/libs/underscore-min.js"></script>
 <script src="js/libs/parse-1.0.2.min.js"></script>
 
-
 <!--<script src="js/plugins-ck.js"></script>-->
 <script src="js/plugins.js"></script>
 <script src="js/script.js"></script>
 <!--<script src="js/script-ck.js"></script>-->
+<script type="text/javascript">
+  (function() {
+    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+    po.src = '//apis.google.com/js/plusone.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+  })();
+</script>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 <script>
 	var _gaq=[['_setAccount','UA-32533014-1'],['_trackPageview']];
 	(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];

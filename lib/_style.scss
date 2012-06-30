@@ -97,8 +97,8 @@ header{
     display: inline-block;
 	letter-spacing:normal;
 	vertical-align: middle;
-    width:107px;
 	padding: 0;
+
 	@include single-text-shadow;
   }
   li:nth-child(1){
@@ -112,6 +112,39 @@ header{
     z-index: 10;
 }
 
+#post_scriptum{
+	font-size: 15px;
+	padding-top:25px;
+	line-height:25px;
+	a{
+		text-decoration: underline;
+	}
+}
+
+#myModal2{
+	z-index: 1050;
+	margin-top: -340px;
+	width: 680px;
+	height: 600px;
+
+	margin-left: -340px;
+	left: 50%;
+	.modal-body{
+		height: 600px !important;
+		max-height: none;
+	}
+	.close{
+		position: absolute;
+		top: -25px;
+		right: -15px;
+		font-size: 25px;
+		color: white;
+		z-index: 1500;
+	}
+}
+.disconnected .modal-backdrop{
+	background-image: none;
+}
 /* ==========================================================================
    Welcome state
    ========================================================================== */
@@ -566,4 +599,17 @@ body.connected #welcome{
 }
 .modal-p{
 	font-size: 14px;
+}
+
+
+/******************* ABOUT PAGE ********************/
+#about_cont{
+	background: white;
+	@include border-radius(20px);
+	margin-top : 35px;
+	font-size: 15px;
+	line-height: 22px;
+}
+#about_inner{
+	padding: 25px;
 }

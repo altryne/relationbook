@@ -440,7 +440,7 @@ gop.ui = {
         var data = gop.data.me;
         data.relationship_status = data.relationship_status || 'unlisted';
         data.rel_code = data.relationship_status.toLowerCase().split(" ").join("_").split("'").join("-");
-        var tmpl = '<div class="small_user_pic" style="background-image:url(https://graph.facebook.com/<%=user.id%>/picture)"/> Hi <%=user.first_name%>, you are <div class="small_rel_info <%=user.rel_code %>"><%=user.relationship_status%></div> | <a href="#" id="logout">logout</a>';
+        var tmpl = '<div class="small_user_pic" style="background-image:url(https://graph.facebook.com/<%=user.id%>/picture)"/> Hi <%=user.first_name%>, you are <div class="small_rel_info <%=user.rel_code %>"><%=user.relationship_status%></div> <a href="#" id="logout">(logout)</a>';
         var tmpl_data = {"user":data};
         var html = _.template(tmpl, tmpl_data);
         $('.userdata').append(html).data({'sex':data.sex,'rel_code':data.rel_code});
