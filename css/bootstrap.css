@@ -197,7 +197,6 @@ body {
 
 a {
   color: #7e8793;
-  text-decoration: none;
 }
 
 a:hover {
@@ -3305,6 +3304,21 @@ body.connected #welcome {
 
 #about_inner {
   padding: 25px;
+}
+#about_inner .title {
+  width: 100px;
+  display: inline-block;
+}
+
+.about_copy {
+  display: block;
+  text-align: center;
+  padding: 15px;
+}
+
+#comments {
+  padding: 15px;
+  min-height: 500px;
 }
 
 .pull-right {
