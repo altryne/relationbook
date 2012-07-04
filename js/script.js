@@ -15,7 +15,7 @@ $('document').ready(function () {
 */
 var game_of_profiles  = gop = {
     debug : false,
-	numberOfFreeActions : 4,
+	numberOfFreeActions : 9,
     pay_to_sort : true,
     conf : {
       view : 'list',
