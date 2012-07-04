@@ -30,7 +30,7 @@ var game_of_profiles  = gop = {
         "engaged" : "to",
         "married" : "to",
         "it-s_complicated" : "with",
-        "in_an_open_relationship" : "width",
+        "in_an_open_relationship" : "with",
         "widowed" : "",
         "separated" : "",
         "divorced" : "",
