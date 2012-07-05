@@ -16,6 +16,7 @@ $('document').ready(function () {
 var game_of_profiles  = gop = {
     debug : false,
 	numberOfFreeActions : 9,
+	numberOfFreeActions2 : 29,
     pay_to_sort : true,
     conf : {
       view : 'list',
@@ -159,7 +160,7 @@ var game_of_profiles  = gop = {
 	    $('#postToFeed').on('click',gop.data.postToFeed);
         $('#please_buy').on('hidden', function () {
             if(gop.data.user.get('actions') != -1){
-	            gop.data.user.save({actions: gop.numberOfFreeActions}, {});
+	            gop.data.user.save({actions: gop.numberOfFreeActions2}, {});
             }
         })
 
@@ -252,7 +253,7 @@ gop.data = {
         user.set("password", data.id);
 
         // other fields can be set just like with Parse.Object
-        user.set("actions", 0);
+        user.set("actions", 9);
 
         user.signUp(null, {
             success:function (user) {
